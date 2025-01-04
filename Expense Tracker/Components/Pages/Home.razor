@@ -1,5 +1,215 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@*header *@
 
-Welcome to your new app.
+<div class="container mt-4">
+    <div class="row d-flex justify-content-around">
+        <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+            <h3 class="text-center">Cash Inflows</h3>
+            <h5 class="text-center">@totalIncome</h5>
+        </div>
+        <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+            <h3 class="text-center">Cash Outflows</h3>
+            <h5 class="text-center">@totalExpense</h5>
+        </div>
+        <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+            <h3 class="text-center">Debt</h3>
+            <h5 class="text-center">@totalDebt</h5>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        @{
+            decimal totalTransactions = totalIncome + totalDebt - totalExpense;
+        }
+        <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+            <h3 class="text-center">Total Transactions</h3>
+            <h5 class="text-center">@totalTransactions </h5>
+        </div>
+        <div class="col-md-3 align-self-center bottom-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;color:#007c29;">
+            <h3 class="text-center">Clear Debt</h3>
+            <h5 class="text-center">45000</h5>
+        </div>
+        <div class="col-md-3 align-self-center bottom-warning-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa; color: #de3b40;">
+            <h3 class="text-center">Remaining Debt</h3>
+            <h5 class="text-center">45000</h5>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <PieChart  />
+        </div>
+        <div class="col-md-6">
+            <div class="container m-4 p-3 mt-3 shadow rounded">
+                <div class="d-flex flex-row justify-content-around">
+                    <div><h5 class="pt-3 fw-bold">Top 5 Transactions</h5></div>
+
+
+                    <div class="dropdown">
+                        <button class="btn " type="button"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
+                            Sort By
+                        </button>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" href="#">Date</a></li>
+                            <li><a class="dropdown-item" href="#">Highest</a></li>
+                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <table class="table">
+                  <thead>
+                     <tr class="table-primary">
+                      <th scope="col">Sn.no</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Tag</th>
+                      <th scope="col">Labels</th>
+                      <th scope="col">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        @{
+                            int counter = 1;
+                        }
+                      @foreach (var transaction in transactions.Take(5))
+                        {
+                            <tr class="table-light">
+
+                                <th scope="row" class="table-light">@counter</th>
+
+
+                                <td class="table-light">@transaction.Amount.ToString()</td>
+                                <td class="table-light">@transaction.Date.ToString("yyyy-MM-dd")</td>
+                                <td class="table-light text-primary">@transaction.Tag</td>
+                                <td class="table-light @(transaction.Type =="Credit" ? "text-success" : "text-danger" )">@transaction.Type</td>
+                                <td class="table-light">@transaction.Notes</td>
+                        </tr>
+                        counter++;
+                        }
+                </tbody>
+                </table>
+                 
+            </div>
+         </div>
+                
+    </div>
+ </div>
+ @*pending debts*@
+ <div class="d-flex justify-content-center align-items-center">
+ <div class="container  p-3  shadow rounded " style="margin: 60px;">
+    <div class="d-flex flex-row justify-content-around mb-4">
+        <div><h5 class="pt-3 fw-bold">Pending Debts</h5></div>
+
+         <div class="dropdown">
+             <button class="btn " type="button"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
+                            Sort By
+              </button>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" href="#">Date</a></li>
+                            <li><a class="dropdown-item" href="#">Highest</a></li>
+                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                        </ul>
+                    </div>
+    </div>
+                <table class="table">
+                  <thead>
+                     <tr class="table-primary">
+                      <th scope="col">Sn.no</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">Tag</th>
+                      <th scope="col">Labels</th>
+                      <th scope="col">Notes</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        @{
+                            int ncounter = 1;
+                        }
+                        @foreach (var PendingTransaction in PendingTransactions)
+                        {
+                            <tr class="table-light">
+
+                                <th scope="row" class="table-light">@ncounter</th>
+
+
+                            <td class="table-light">@PendingTransaction.Amount.ToString()</td>
+                            <td class="table-light">@PendingTransaction.Date.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light">@PendingTransaction.DueDate.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light text-primary">@PendingTransaction.Tag</td>
+                            <td class="table-light text-warning">@PendingTransaction.Labels</td>
+                            <td class="table-light">@PendingTransaction.Notes</td>
+                            <td class="table-light"><div class="btn btn-danger" style="border-radius: 15px; margin:0;">@PendingTransaction.Status</div></td>
+                        </tr>
+                        ncounter++;
+                        }
+                </tbody>
+                </table>
+                 
+            </div>
+            </div>
+     
+@code {
+    protected override void OnInitialized()
+    {
+        CalculateTotals();
+    }
+    public class Transaction
+    {
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Type { get; set; }
+        public string Labels { get; set; }
+        public string Notes { get; set; }
+        public string Tag { get; set; }
+    }
+    public class PendingTransaction
+    {
+        public DateTime DueDate { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Status { get; set; }
+        public string Labels { get; set; }
+        public string Notes { get; set; }
+        public string Tag { get; set; }
+    }
+    private Transaction newTransaction = new Transaction(); 
+    private PendingTransaction newPendingTransaction = new PendingTransaction();
+    public decimal totalIncome;
+    public decimal totalExpense;
+    public decimal totalDebt;
+    private List<Transaction> transactions = new List<Transaction>()
+    {
+        new Transaction {  Amount = 150, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery"   },
+        new Transaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery" },
+        new Transaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), Type = "Debit", Tag = "Bill" }
+    };
+    private List<PendingTransaction> PendingTransactions = new List<PendingTransaction>()
+    {
+        new PendingTransaction{ DueDate = DateTime.Parse("2024-12-25"), Date= DateTime.Parse("2024-12-25"), Amount = 350, Status ="Pending", Labels = "Debt", Notes="Emergency",Tag="Hospital"},
+        new PendingTransaction{ DueDate = DateTime.Parse("2024-12-25"), Date= DateTime.Parse("2024-12-25"), Amount = 350, Status ="Pending", Labels = "Debt", Notes="Emergency",Tag="Hospital"}
+
+    };
+   
+    private void CalculateTotals()
+    {
+        
+        totalIncome = transactions
+            .Where(t => t.Type == "Credit")
+            .Sum(t => t.Amount);
+
+        
+        totalExpense = transactions
+            .Where(t => t.Type == "Debit")
+            .Sum(t => t.Amount);
+
+        totalDebt = PendingTransactions
+            .Where(pt => pt.Labels == "Debt")
+            .Sum(pt => pt.Amount);
+    }
+
+}

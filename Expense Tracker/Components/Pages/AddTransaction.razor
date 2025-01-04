@@ -1,0 +1,89 @@
+﻿@page "/AddTransaction"
+<div class="container">
+  <h2 class="text-center" style="color: #0f4c7b;">Add Transaction</h2>
+    <form>
+       <div class="mb-3">
+         <label for="Amount" class="form-label">Amount</label>
+          <input type="number" class="form-control"  />
+        </div>
+        <div class="mb-3">
+           <label for="Type Of Transaction" class="form-label">Type Of Transaction</label>
+             <select class="form-control" >
+                <option value="defaultText" selected disabled hidden>Select Transaction Type</option>
+                <option value="Inflow">Inflow</option>
+                 <option value="Outflow">Outflow</option>
+                 <option value="Debt">Debt</option>
+             </select>
+
+         </div>
+         <div class="mb-3">
+             <label for="Date" class="form-label">Date</label>
+             <input type="date" class="form-control"/>
+                        
+          </div>
+          <div class="mb-3">
+              <label for="Note" class="form-label">Notes</label>
+               <input type="text" class="form-control" />
+          </div>
+          <div class="mb-3">
+              <label for="Tag" class="form-label">Tag</label>
+              <select class="form-control">
+                 <option value="defaultText" selected disabled hidden>Select Tag</option>
+                     @foreach(var tag in tags)
+                            {
+                    <option value="@tag">@tag</option>
+                            }
+               
+                            
+               </select>
+
+          </div>
+           <button class="btn btn-primary" type="button" @onclick="EnableCustomTag"> Add Custom</button>
+     </form>
+                
+     @if (customTagAdditional)
+        {
+        <div class="m-2">
+             <input type="text" class="form-control" placeholder="Enter Custom Tag" @bind="custom" />
+              <button class="btn btn-primary" type="button" @onclick="AddCustomTag">Add Tag</button>
+               <button class="btn btn-secondary mt-2 ms-2" type="button" @onclick="CancelCustom">Cancel</button>
+         </div>
+                    }
+        <div>
+        <button type="button" class="btn mt-2" style="background-color: #f1f8fd; color: #0f4c7b;">Confirm Transaction</button>
+                    </div>
+                   
+</div>
+                
+        
+
+@code {
+    private List<string> tags = new List<string>{"Clothes", "Gadgets", "Groceries" };
+    private bool customTagAdditional = false;
+    private string custom;
+
+    private void EnableCustomTag()
+    {
+        customTagAdditional = true;
+        custom = string.Empty;
+    }
+
+    private void AddCustomTag()
+    {
+        if (!string.IsNullOrWhiteSpace(custom) && !tags.Contains(custom))
+        {
+            tags.Add(custom);
+        }
+        
+        else
+        {
+            
+        }
+        customTagAdditional = false;
+    }
+
+    private void CancelCustom()
+    {
+        customTagAdditional = false;
+    }
+}

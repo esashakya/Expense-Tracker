@@ -1,0 +1,105 @@
+﻿@page "/Inflow"
+@inject NavigationManager navigationManager
+<div class="container">
+    <div class="d-flex flex-column align-items-center">
+        <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH INFLOW</h2>
+        <div class="background-blue p-3 m-4 text-center">
+            <h3 class="fw-bold"><span>Total Amount:</span>15000</h3>
+        </div>
+    </div>
+    <div class="mb-5" style="margin-left: 25%; ">
+        <div class="d-flex flex-row">
+            <div class="col-md-6">
+                <div>
+                    <button type="button" class="btn btn-primary" @onclick="OpenTransaction">Add Transaction</button>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-left:30px;">
+                <h5><span class="text-blue">Date:</span>@DateTime.Now.ToString("yyyy-MM-dd")</h5>
+            </div>
+
+        </div>
+    </div>
+        <form class="d-flex" style="width:25%;">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+    <div class="container m-4 p-3 mt-3 shadow rounded" style="margin-left: 25%;">
+                <div class="d-flex flex-row justify-content-end mb-3">
+                    
+
+
+                    <div class="dropdown">
+                        <button class="btn " type="button"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
+                            Sort By
+                        </button>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" href="#">Date</a></li>
+                            <li><a class="dropdown-item" href="#">Highest</a></li>
+                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <table class="table">
+                  <thead>
+                     <tr class="table-primary">
+                      <th scope="col">Sn.no</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Tag</th>
+                      <th scope="col">Labels</th>
+                      <th scope="col">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        @{
+                            int counter = 1;
+                        }
+                         @foreach (var inflowTransaction in inflowTransactions)
+                        {
+                            <tr class="table-light">
+
+                            <th scope="row" class="table-light">@counter</th>
+
+
+                            <td class="table-light">@inflowTransaction.Amount.ToString()</td>
+                            <td class="table-light">@inflowTransaction.Date.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light text-primary">@inflowTransaction.Tag</td>
+                            <td class="table-light text-success">@inflowTransaction.Type</td>
+                            <td class="table-light">@inflowTransaction.Notes</td>
+                        </tr>
+                        counter++;
+                        }
+                </tbody>
+                </table>
+                 
+            </div>
+</div>
+
+
+@code {
+    public class inflowTransaction
+    {
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Type { get; set; }
+        public string Labels { get; set; }
+        public string Notes { get; set; }
+        public string Tag { get; set; }
+    }
+    private bool showTransactionModal = false;
+    private inflowTransaction newInflowTransaction = new inflowTransaction();
+    private List<inflowTransaction> inflowTransactions = new List<inflowTransaction>()
+    {
+        new inflowTransaction {  Amount = 150, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery"   },
+        new inflowTransaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery" },
+        new inflowTransaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Bill" }
+    };
+    private void OpenTransaction()
+    {
+        navigationManager.NavigateTo("/AddTransaction");
+    }
+}

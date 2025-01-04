@@ -1,0 +1,36 @@
+.navbar-nav .nav-link.active {
+    color: #166db0 !important;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #166db0;
+    text-underline-offset: 5px;
+}
+.userProfile {
+    background-color: #197dca !important;
+    color: white !important;
+    padding: 2px 4px;
+    border-radius: 5px;
+    height: 30px;
+    display: inline-block;
+}
+.top-shadow {
+    box-shadow: 4px 4px 10px rgba(99, 106, 232) ;
+}
+.bottom-shadow {
+    box-shadow: 4px 4px 10px rgba(0, 124, 41) ;
+}
+.bottom-warning-shadow {
+    box-shadow: 4px 4px 10px rgba(222, 59, 64);
+}
+.background-blue {
+    background: #f1f8fd;
+    color: #171a1f;
+    width: 50%;
+    border-radius:15px;
+}
+    .background-blue span {
+        color: #de3b40;
+    }
+.text-blue {
+    color: #125d95;
+}

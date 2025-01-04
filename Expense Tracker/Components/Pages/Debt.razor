@@ -1,0 +1,111 @@
+﻿@page "/Debt"
+@inject NavigationManager navigationManager
+<div class="container">
+    <div class="d-flex flex-column align-items-center">
+        <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH DEBT</h2>
+        <div class="background-blue p-3 m-4 text-center">
+            <h3 class="fw-bold"><span>Total Amount:</span>15000</h3>
+        </div>
+    </div>
+    <div class="mb-5" style="margin-left: 25%; ">
+        <div class="d-flex flex-row">
+            <div class="col-md-6">
+                <div>
+                    <button type="button" class="btn btn-primary" @onclick="OpenTransaction">Add Transaction</button>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-left:30px;">
+                <h5><span class="text-blue">Date:</span>@DateTime.Now.ToString("yyyy-MM-dd")</h5>
+            </div>
+
+        </div>
+    </div>
+    <form class="d-flex" style="width:25%;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container  p-3  shadow rounded " style="margin: 60px;">
+        <div class="d-flex flex-row justify-content-around mb-4">
+            <div><h5 class="pt-3 fw-bold">Pending Debts</h5></div>
+
+            <div class="dropdown">
+                <button class="btn " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
+                    Sort By
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Date</a></li>
+                    <li><a class="dropdown-item" href="#">Highest</a></li>
+                    <li><a class="dropdown-item" href="#">Lowest</a></li>
+                </ul>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Sn.no</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Tag</th>
+                    <th scope="col">Labels</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Source</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Clear</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int ncounter = 1;
+                }
+                @foreach (var DebtTransaction in DebtTransactions)
+                {
+                    <tr class="table-light">
+
+                        <th scope="row" class="table-light">@ncounter</th>
+
+
+                        <td class="table-light">@DebtTransaction.Amount.ToString()</td>
+                        <td class="table-light">@DebtTransaction.Date.ToString("yyyy-MM-dd")</td>
+                        <td class="table-light">@DebtTransaction.DueDate.ToString("yyyy-MM-dd")</td>
+                        <td class="table-light text-primary">@DebtTransaction.Tag</td>
+                        <td class="table-light text-warning">@DebtTransaction.Labels</td>
+                        <td class="table-light">@DebtTransaction.Notes</td>
+                        <td class="table-light">@DebtTransaction.Source</td>
+                        <td class="table-light"><div class="@(DebtTransaction.Status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtTransaction.Status</div></td>
+                        <td class="table-light"><div class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;">@DebtTransaction.Clear</div></td>
+                    </tr>
+                    ncounter++;
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@code {
+    public class DebtTransaction
+    {
+        public DateTime DueDate { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Status { get; set; }
+        public string Labels { get; set; }
+        public string Notes { get; set; }
+        public string Source { get; set; }
+        public string Tag { get; set; }
+        public string Clear { get; set; }
+    }
+    private List<DebtTransaction> DebtTransactions = new List<DebtTransaction>()
+    {
+        new DebtTransaction {  Amount = 1500, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Grocery", Notes="Finish money",Source="Biren",Clear="clear", Status="Pending"  },
+        new DebtTransaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Grocery", Notes="Finish money",Source="Biren",Clear="clear", Status="Pending"  },
+        new DebtTransaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Bill", Notes="Finish money",Source="Biren",Clear="clear", Status="Clear"  }
+    };
+    private void OpenTransaction()
+    {
+        navigationManager.NavigateTo("/AddTransaction");
+    }
+}

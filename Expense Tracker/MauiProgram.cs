@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using MudBlazor.Services;
 namespace Expense_Tracker
 {
     public static class MauiProgram
@@ -15,6 +15,7 @@ namespace Expense_Tracker
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddMudServices();
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();

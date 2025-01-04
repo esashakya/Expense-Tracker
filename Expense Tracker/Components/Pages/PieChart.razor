@@ -1,0 +1,15 @@
+﻿@page "/PieChart"
+<div class="container mt-2">
+    <MudPaper Class="pa-4">
+        <MudChart ChartType="ChartType.Pie" InputData="@data" @bind-SelectedIndex="Index" InputLabels="@labels" Width="200px" Height="200px" />
+    </MudPaper>
+</div>
+
+@code {
+        
+        private int Index = -1; 
+        int dataSize = 3;
+        double[] data = { 77, 25, 20 };
+        string[] labels = { "Inflow", "Outflow", "Debt" };
+
+}
