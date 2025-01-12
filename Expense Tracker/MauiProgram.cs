@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
+using Expense_Tracker.Services;
+
 namespace Expense_Tracker
 {
     public static class MauiProgram
@@ -16,9 +18,13 @@ namespace Expense_Tracker
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddMudServices();
+            builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddSingleton<IInflowService, InflowService>();
+            builder.Services.AddSingleton<IOutflowService, OutflowService>();
+            builder.Services.AddSingleton<AuthenticationStateService>();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 

@@ -3,4 +3,7 @@
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        <h4 class="text-warning text-center">Error found. Please try again.</h4>
+    </NotFound>
 </Router>

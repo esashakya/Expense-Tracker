@@ -3,44 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\debt.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\debt.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\transactiondebt.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\transactiondebt.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\outflow.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\outflow.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\inflow.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\inflow.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\services\\inflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\services\\inflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\addtransaction.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\addtransaction.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\piechart.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\piechart.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\pages\\signup.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\pages\\signup.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|c:\\users\\asus\\source\\repos\\expense tracker\\expense tracker\\models\\inflow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A85ED3FB-8EBB-4E47-8119-1E4D28250C6C}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\models\\inflow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,123 +31,54 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Debt.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Debt.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\Debt.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Debt.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\Debt.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "Title": "TransactionDebt.razor",
+              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\TransactionDebt.razor",
+              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\TransactionDebt.razor",
+              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\TransactionDebt.razor",
+              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\TransactionDebt.razor",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEkAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-03T20:50:50.913Z",
+              "WhenOpened": "2025-01-12T17:35:20.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Inflow.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Models\\Inflow.cs",
+              "RelativeDocumentMoniker": "Expense Tracker\\Models\\Inflow.cs",
+              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Models\\Inflow.cs",
+              "RelativeToolTip": "Expense Tracker\\Models\\Inflow.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-12T17:11:48.449Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Outflow.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Outflow.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\Outflow.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Outflow.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\Outflow.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-03T20:43:38.261Z"
+              "Title": "InflowService.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Services\\InflowService.cs",
+              "RelativeDocumentMoniker": "Expense Tracker\\Services\\InflowService.cs",
+              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Services\\InflowService.cs",
+              "RelativeToolTip": "Expense Tracker\\Services\\InflowService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-12T17:04:48.703Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Inflow.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Inflow.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\Inflow.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Inflow.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\Inflow.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-03T18:28:08.076Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PieChart.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\PieChart.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\PieChart.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\PieChart.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\PieChart.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-30T17:45:20.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\Home.razor",
-              "ViewState": "AgIAAM0AAAAAAAAAACBjwFIAAABYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-30T17:06:50.686Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "dashboard.css",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\css\\dashboard.css",
-              "RelativeDocumentMoniker": "Expense Tracker\\wwwroot\\css\\dashboard.css",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\css\\dashboard.css",
-              "RelativeToolTip": "Expense Tracker\\wwwroot\\css\\dashboard.css",
-              "ViewState": "AgIAAAgAAAAAAAAAACBjwB4AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-30T11:58:01.65Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-28T16:18:56.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "AddTransaction.razor",
               "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\AddTransaction.razor",
               "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\AddTransaction.razor",
               "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\AddTransaction.razor",
               "RelativeToolTip": "Expense Tracker\\Components\\Pages\\AddTransaction.razor",
-              "ViewState": "AgIAADIAAAAAAAAAACBjwDMAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAADAAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-04T03:07:22.881Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SignUp.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\SignUp.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Pages\\SignUp.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Pages\\SignUp.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Pages\\SignUp.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-04T10:51:41.2Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "Expense Tracker\\Components\\Layout\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\Components\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "Expense Tracker\\Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-30T11:54:20.833Z"
+              "WhenOpened": "2025-01-12T16:44:16.747Z",
+              "EditorCaption": ""
             }
           ]
         }

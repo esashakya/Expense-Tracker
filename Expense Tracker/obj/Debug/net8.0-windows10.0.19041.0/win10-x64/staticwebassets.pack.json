@@ -33,8 +33,8 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\registration.png",
-      "PackagePath": "staticwebassets\\registration.png"
+      "Id": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\registration.jpg",
+      "PackagePath": "staticwebassets\\registration.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.Expense Tracker.Microsoft.AspNetCore.StaticWebAssets.props",

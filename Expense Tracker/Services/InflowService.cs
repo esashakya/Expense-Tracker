@@ -11,6 +11,38 @@ namespace Expense_Tracker.Services
     public class InflowService: IInflowService
     {
         private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "Transaction.json");
+        public async Task AddInflowAsync(Inflow inflow)
+        {
+            try
+            {
+                var transactions = await LoadInflowAsync();
+                inflow.inflowId = transactions.Count > 0 ? transactions.Max(t => t.inflowId) + 1 : 1;
+                transactions.Add(inflow);
+                await SaveInflowAsync(transactions);
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine($"Error adding task: {ex.Message}");
+                throw; 
+            }
+        }
+
+        public async Task<List<Inflow>> GetTasksByUserIdAsync(int userId)
+        {
+            try
+            {
+                var transactions = await LoadInflowAsync();
+                
+                return (transactions ?? new List<Inflow>()).Where(t => t.user_id == userId).ToList();
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                return new List<Inflow>(); 
+            }
+        }
         public async Task<List<Inflow>> LoadInflowAsync()
         {
             try
@@ -30,12 +62,12 @@ namespace Expense_Tracker.Services
             }
             catch (IOException ioEx)
             {
-                Console.WriteLine($"I/O error while loading users: {ioEx.Message}");
+                Console.WriteLine($"I/O error while loading transaction: {ioEx.Message}");
                 return new List<Inflow>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Unexpected error while loading transaction: {ex.Message}");
                 return new List<Inflow>();
             }
         }

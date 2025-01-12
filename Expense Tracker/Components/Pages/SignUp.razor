@@ -1,1 +1,98 @@
-﻿
+﻿@page "/SignUp"
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject IUserService userService
+@inject NavigationManager navigationManager
+@inject AuthenticationStateService authStateService
+<div class="container">
+    <div class="d-flex flex-row">
+        <div class="col-md-6 d-flex flex-column">
+            <h2 class="text-center">Sign Up</h2>
+            <h5 class="fw-light text-center">Create your new account</h5>
+            <div class="mt-2">
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" @bind=newUser.username/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" @bind=newUser.user_email />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control"  @bind=newUser.password/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="retypePassword" class="form-label">Retype Your Password</label>
+                        <input type="password" id="retypePassword" class="form-control" @bind=newUser.retypePassword/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="currencyType" class="form-label">Preffered Currency Type</label>
+                        <select id="currencyType" class="form-select" @bind="newUser.currencyType">
+
+                                <option value="defaultText" selected disabled hidden>Select Currency Type</option>
+                                <option value="Rupees">Rupees</option>
+                                <option value="Euros">Euros</option>
+                                <option value="Dollar">$</option>
+                           
+                        </select>
+                    </div>
+                    <div class="align-items-center">
+                        <button type="button" class="btn btn-primary w-100 " @onclick="SignNewUser">Sign Up</button>
+                    </div>
+                    <hr/>
+                    <div>
+                        <p class="text-center">Already have an account?<a href="/">Log in</a></p>
+                    </div>
+                    @if (!string.IsNullOrEmpty(errorSignUpMessage))
+                    {
+                        <p class="error-message text-danger text-center bg-light">@errorSignUpMessage</p>
+                    }
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 mt-4 ms-4 d-flex justify-content-center">
+            <img src="/registration.jpg" class="ms-2" style="max-width: 90%; height: 90%;" />
+        </div>
+    </div>
+</div>
+@code{
+    private User newUser = new User();
+    private string errorSignUpMessage;
+    private async Task SignNewUser()
+    {
+
+        try
+        {
+            var existingUsers = await userService.LoadUsersAsync();
+          
+            
+            
+            if (string.IsNullOrEmpty(newUser.username) && string.IsNullOrEmpty(newUser.user_email) && string.IsNullOrEmpty(newUser.password) && string.IsNullOrEmpty(newUser.retypePassword) && string.IsNullOrEmpty(newUser.currencyType))
+            {
+                errorSignUpMessage = "Please fill all the details as we proceed in registering to our system";
+            }
+            else if (existingUsers.Any(u => u.user_email == newUser.user_email))
+                {
+                    errorSignUpMessage = "Email already exists. Try to sign up with new account";
+                    return;
+                }
+            else if (newUser.password != newUser.retypePassword)
+            {
+                errorSignUpMessage = "Recheck your password";
+                return;
+            }
+            await userService.SaveUserAsync(newUser);
+            
+            newUser = new User();
+            errorSignUpMessage = null; 
+            navigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            errorSignUpMessage = $"An error occurred while creating the user: {ex.Message}";
+            
+        }
+    }
+}

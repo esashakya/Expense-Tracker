@@ -1,14 +1,17 @@
 ﻿@page "/AddTransaction"
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject IInflowService inflowService
 <div class="container">
   <h2 class="text-center" style="color: #0f4c7b;">Add Transaction</h2>
     <form>
        <div class="mb-3">
          <label for="Amount" class="form-label">Amount</label>
-          <input type="number" class="form-control"  />
+            <input type="number" class="form-control" @bind="newTransaction.inflow_amount" />
         </div>
         <div class="mb-3">
            <label for="Type Of Transaction" class="form-label">Type Of Transaction</label>
-             <select class="form-control" >
+            <select class="form-control" @bind="newTransaction.inflow_label">
                 <option value="defaultText" selected disabled hidden>Select Transaction Type</option>
                 <option value="Inflow">Inflow</option>
                  <option value="Outflow">Outflow</option>
@@ -18,16 +21,16 @@
          </div>
          <div class="mb-3">
              <label for="Date" class="form-label">Date</label>
-             <input type="date" class="form-control"/>
+            <input type="date" class="form-control" @bind="newTransaction.inflow_date" />
                         
           </div>
           <div class="mb-3">
               <label for="Note" class="form-label">Notes</label>
-               <input type="text" class="form-control" />
+            <input type="text" class="form-control" @bind="newTransaction.inflow_note" />
           </div>
           <div class="mb-3">
               <label for="Tag" class="form-label">Tag</label>
-              <select class="form-control">
+            <select class="form-control" @bind="newTransaction.inflow_tag">
                  <option value="defaultText" selected disabled hidden>Select Tag</option>
                      @foreach(var tag in tags)
                             {
@@ -38,7 +41,7 @@
                </select>
 
           </div>
-           <button class="btn btn-primary" type="button" @onclick="EnableCustomTag"> Add Custom</button>
+        <button class="btn btn-primary" type="button" @onclick="EnableCustomTag" @bind="newTransaction.custom_inflow_tag"> Add Custom</button>
      </form>
                 
      @if (customTagAdditional)
@@ -50,7 +53,7 @@
          </div>
                     }
         <div>
-        <button type="button" class="btn mt-2" style="background-color: #f1f8fd; color: #0f4c7b;">Confirm Transaction</button>
+        <button type="button" class="btn mt-2" style="background-color: #f1f8fd; color: #0f4c7b;" @onclick="AddNewTransaction">Confirm Transaction</button>
                     </div>
                    
 </div>
@@ -74,10 +77,10 @@
         {
             tags.Add(custom);
         }
-        
+
         else
         {
-            
+
         }
         customTagAdditional = false;
     }
@@ -85,5 +88,29 @@
     private void CancelCustom()
     {
         customTagAdditional = false;
+    }
+
+    // code starts
+    private List<Inflow> transaction = new();
+    private Inflow newTransaction = new Inflow();
+    private string errorMessage;
+    
+    private async Task AddNewTransaction()
+    {
+        
+            try
+            {
+            await inflowService.AddInflowAsync(newTransaction);
+                
+               
+                newTransaction = new Inflow();
+                errorMessage = null; 
+            }
+            catch (Exception ex)
+            {
+                
+                errorMessage = $"Error adding task: {ex.Message}";
+                Console.WriteLine(errorMessage); 
+            }
     }
 }

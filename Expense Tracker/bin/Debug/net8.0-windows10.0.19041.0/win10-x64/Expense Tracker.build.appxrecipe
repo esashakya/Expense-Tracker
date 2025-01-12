@@ -61,8 +61,8 @@
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\registration.png">
-      <PackagePath>wwwroot\registration.png</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\registration.jpg">
+      <PackagePath>wwwroot\registration.jpg</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>

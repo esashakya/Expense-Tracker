@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-01-11T15:59:31.062</Modified>
+      <Modified>2025-01-12T17:36:42.931</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2025-01-11T15:59:30.621</Modified>
+      <Modified>2025-01-12T13:46:48.011</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Expense Tracker.runtimeconfig.json">
       <PackagePath>Expense Tracker.runtimeconfig.json</PackagePath>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Expense Tracker.dll">
       <PackagePath>Expense Tracker.dll</PackagePath>
-      <Modified>2025-01-11T15:59:28.335</Modified>
+      <Modified>2025-01-12T17:36:05.359</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>Expense Tracker.exe</PackagePath>
-      <Modified>2025-01-11T15:59:28.445</Modified>
+      <Modified>2025-01-12T17:36:05.399</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -72,7 +72,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\desktop.ini">
       <PackagePath>wwwroot\desktop.ini</PackagePath>
-      <Modified>2025-01-04T11:44:46.639</Modified>
+      <Modified>2025-01-12T13:46:39.709</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\favicon.png">
       <PackagePath>wwwroot\favicon.png</PackagePath>
@@ -82,9 +82,9 @@
       <PackagePath>wwwroot\index.html</PackagePath>
       <Modified>2024-12-30T17:59:42.670</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\registration.png">
-      <PackagePath>wwwroot\registration.png</PackagePath>
-      <Modified>2025-01-04T11:44:32.163</Modified>
+    <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\wwwroot\registration.jpg">
+      <PackagePath>wwwroot\registration.jpg</PackagePath>
+      <Modified>2025-01-12T13:46:23.827</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
@@ -316,7 +316,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\source\repos\Expense Tracker\Expense Tracker\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Expense Tracker.deps.json">
       <PackagePath>Expense Tracker.deps.json</PackagePath>
-      <Modified>2025-01-11T15:59:30.037</Modified>
+      <Modified>2025-01-12T13:17:27.105</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Asus\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.34\lib\net6.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>

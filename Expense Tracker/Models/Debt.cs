@@ -8,8 +8,8 @@ namespace Expense_Tracker.Models
 {
     public class Debt
     {
-        public string debtId { get; set; }
-        public string user_id { get; set; }
+        public int debtId { get; set; }
+        public int user_id { get; set; }
         public int debt_amount { get; set; }
         public DateTime debt_date { get; set; }
         public string debt_tag { get; set; }

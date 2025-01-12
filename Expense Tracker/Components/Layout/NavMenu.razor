@@ -1,14 +1,14 @@
 ﻿
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold ms-4 " href="/" style="color:#125d95;">Expense Tracker</a>
+        <a class="navbar-brand fw-bold ms-4 " href="/Dashboard" style="color:#125d95;">Expense Tracker</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav" >
             <ul class="navbar-nav" style="margin-left:55%;">
                 <li class="nav-item fw-normal">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/Dashboard">Home</a>
                 </li>
                 <li class="nav-item fw-normal">
                     <a class="nav-link" href="/Inflow">Inflow</a>
@@ -21,7 +21,9 @@
                 </li>
 
             </ul>
-            <button type="button" class="btn btn-primary ms-2"> <a class="nav-link" href="/SignUp" style="color:white">User Profile</a></button>
+            <NavLink class="btn btn-primary ms-2" href="/" Match="NavLinkMatch.All" style="color:white;">
+                Login
+            </NavLink>
             
         </div>
         

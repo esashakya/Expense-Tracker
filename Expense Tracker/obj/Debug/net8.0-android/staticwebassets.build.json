@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uCcNzJ/B1HHJL1HZjkc5PoscDNO4rDsWkYLYCEFiwlo=",
+  "Hash": "I24AZv4ED5O2vd8ewJc1rt+SzPiR/UkqUzqzJ+5EVJk=",
   "Source": "Expense Tracker",
   "BasePath": "/",
   "Mode": "Root",
@@ -226,12 +226,12 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\registration.png",
+      "Identity": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\registration.jpg",
       "SourceId": "Expense Tracker",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Asus\\source\\repos\\Expense Tracker\\Expense Tracker\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "registration.png",
+      "RelativePath": "registration.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -242,7 +242,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\registration.png"
+      "OriginalItemSpec": "wwwroot\\registration.jpg"
     }
   ]
 }

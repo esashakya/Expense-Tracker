@@ -1,0 +1,20 @@
+[
+  {
+    "user_id": 0,
+    "retypePassword": "777",
+    "username": "esa777",
+    "password": "6vidtxCEcNw/ayPqkGGCZLPo\u002BLYUU3FmfEBV6cXOn1I=",
+    "currencyType": "Rupees",
+    "user_email": "esa777@gmail.com",
+    "total_amount": 0
+  },
+  {
+    "user_id": 0,
+    "retypePassword": "1111",
+    "username": "11",
+    "password": "D/4avRoIIVNTwjPW4AlhPpXuxCU4Mqdhryj/N6xaFQw=",
+    "currencyType": "Rupees",
+    "user_email": "11@gmail.com",
+    "total_amount": 0
+  }
+]
