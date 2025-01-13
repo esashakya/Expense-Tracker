@@ -1,0 +1,74 @@
+[
+  {
+    "outflowId": 1,
+    "user_id": 1,
+    "outflow_amount": 1200,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_label": "Outflow",
+    "outflow_note": "hello"
+  },
+  {
+    "outflowId": 2,
+    "user_id": 1,
+    "outflow_amount": 12000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Outflow",
+    "outflow_note": "testing"
+  },
+  {
+    "outflowId": 3,
+    "user_id": 1,
+    "outflow_amount": 10,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 4,
+    "user_id": 2,
+    "outflow_amount": 2000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 5,
+    "user_id": 2,
+    "outflow_amount": 2500,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 6,
+    "user_id": 2,
+    "outflow_amount": 250,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 7,
+    "user_id": 2,
+    "outflow_amount": 100,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 8,
+    "user_id": 2,
+    "outflow_amount": 0,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  }
+]

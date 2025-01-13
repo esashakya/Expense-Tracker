@@ -1,20 +1,20 @@
 [
   {
-    "user_id": 0,
-    "retypePassword": "777",
-    "username": "esa777",
-    "password": "6vidtxCEcNw/ayPqkGGCZLPo\u002BLYUU3FmfEBV6cXOn1I=",
+    "user_id": 1,
+    "retypePassword": "life",
+    "username": "life",
+    "password": "Y71wZe8eFloEJV1ASINs4Sbf4ragd3cirTpcYBMSnRk=",
     "currencyType": "Rupees",
-    "user_email": "esa777@gmail.com",
+    "user_email": "life@gmail.com",
     "total_amount": 0
   },
   {
-    "user_id": 0,
-    "retypePassword": "1111",
-    "username": "11",
-    "password": "D/4avRoIIVNTwjPW4AlhPpXuxCU4Mqdhryj/N6xaFQw=",
+    "user_id": 2,
+    "retypePassword": "pharsa",
+    "username": "pharsa",
+    "password": "WVsatuM0tOQ5p/8OIvJDb60UIO4PpUFLbNFcCILKv3A=",
     "currencyType": "Rupees",
-    "user_email": "11@gmail.com",
+    "user_email": "pharsa@gmail.com",
     "total_amount": 0
   }
 ]

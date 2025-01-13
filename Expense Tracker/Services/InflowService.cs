@@ -10,11 +10,28 @@ namespace Expense_Tracker.Services
 {
     public class InflowService: IInflowService
     {
-        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "Transaction.json");
+        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "InflowTransaction.json");
+        private readonly AuthenticationStateService _authStateService; // using authenicationService to collect loggedin user id
+
+        public InflowService(AuthenticationStateService authStateService)
+        {
+            _authStateService = authStateService; 
+        }
+        private int GetLoggedInUserId()
+        {
+            var loggedUser = _authStateService.GetAuthenticatedUser(); //get user details
+            if (loggedUser == null)
+            {
+                throw new UnauthorizedAccessException("User is not authenticated.");
+            }
+            return loggedUser.user_id; // user id is returned
+        }
         public async Task AddInflowAsync(Inflow inflow)
         {
+
             try
             {
+                inflow.user_id = GetLoggedInUserId();
                 var transactions = await LoadInflowAsync();
                 inflow.inflowId = transactions.Count > 0 ? transactions.Max(t => t.inflowId) + 1 : 1;
                 transactions.Add(inflow);

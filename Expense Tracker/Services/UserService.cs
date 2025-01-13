@@ -17,8 +17,8 @@ namespace Expense_Tracker.Services
             try
             {
                 var users = await LoadUsersAsync();
+                user.user_id = users.Count > 0 ? users.Max(t => t.user_id) + 1 : 1;
 
-         
                 user.password = HashPassword(user.password);
 
                 users.Add(user);

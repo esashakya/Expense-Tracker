@@ -9,7 +9,12 @@ namespace Expense_Tracker.Services
 {
     public class OutflowService : IOutflowService
     {
-        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "Transaction.json");
+        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "OutflowTransaction.json");
+        private readonly AuthenticationStateService _authStateService;
+        public OutflowService(AuthenticationStateService authStateService)
+        {
+            _authStateService = authStateService; 
+        }
         public async Task<List<Outflow>> LoadOutflowAsync()
         {
             try
@@ -38,7 +43,33 @@ namespace Expense_Tracker.Services
                 return new List<Outflow>();
             }
         }
+        private int GetLoggedInUserId()
+        {
+            var loggedUser = _authStateService.GetAuthenticatedUser(); //get user details
+            if (loggedUser == null)
+            {
+                throw new UnauthorizedAccessException("User is not authenticated.");
+            }
+            return loggedUser.user_id; // user id is returned
+        }
+        public async Task AddOutflowAsync(Outflow outflow)
+        {
 
+            try
+            {
+                outflow.user_id = GetLoggedInUserId();
+                var transactions = await LoadOutflowAsync();
+                outflow.outflowId = transactions.Count > 0 ? transactions.Max(t => t.outflowId) + 1 : 1;
+                transactions.Add(outflow);
+                await SaveOutflowAsync(transactions);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error adding task: {ex.Message}");
+                throw;
+            }
+        }
 
 
         public async Task SaveOutflowAsync(List<Outflow> outflowDetails)

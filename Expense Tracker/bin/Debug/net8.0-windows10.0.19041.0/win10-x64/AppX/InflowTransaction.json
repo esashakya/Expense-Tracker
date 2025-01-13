@@ -1,0 +1,142 @@
+[
+  {
+    "inflowId": 1,
+    "user_id": 1,
+    "inflow_amount": 1200,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Groceries",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "hello"
+  },
+  {
+    "inflowId": 2,
+    "user_id": 1,
+    "inflow_amount": 5000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 3,
+    "user_id": 1,
+    "inflow_amount": 1200,
+    "inflow_date": "0001-01-24T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "jiij"
+  },
+  {
+    "inflowId": 4,
+    "user_id": 1,
+    "inflow_amount": 1200,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "keooo"
+  },
+  {
+    "inflowId": 5,
+    "user_id": 1,
+    "inflow_amount": 20000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "baha"
+  },
+  {
+    "inflowId": 6,
+    "user_id": 1,
+    "inflow_amount": 20000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "baha"
+  },
+  {
+    "inflowId": 7,
+    "user_id": 1,
+    "inflow_amount": 120,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 8,
+    "user_id": 1,
+    "inflow_amount": 12000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": null,
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 9,
+    "user_id": 1,
+    "inflow_amount": 500000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 10,
+    "user_id": 1,
+    "inflow_amount": 120000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 11,
+    "user_id": 1,
+    "inflow_amount": 500,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 12,
+    "user_id": 2,
+    "inflow_amount": 2500,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 13,
+    "user_id": 1,
+    "inflow_amount": 3000,
+    "inflow_date": "2025-01-13T00:00:00",
+    "inflow_tag": "Groceries",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 14,
+    "user_id": 1,
+    "inflow_amount": 500,
+    "inflow_date": "0001-01-17T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
+  }
+]
