@@ -1,10 +1,15 @@
 ﻿@page "/Inflow"
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject AuthenticationStateService _authStateService
 @inject NavigationManager navigationManager
+@inject IDashboardService dashboardService
+@inject IInflowService inflowService
 <div class="container">
     <div class="d-flex flex-column align-items-center">
         <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH INFLOW</h2>
         <div class="background-blue p-3 m-4 text-center">
-            <h3 class="fw-bold"><span>Total Amount:</span>15000</h3>
+            <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
@@ -57,18 +62,18 @@
                         @{
                             int counter = 1;
                         }
-                         @foreach (var inflowTransaction in inflowTransactions)
+                        @foreach (var InflowItem in InflowItems)
                         {
                             <tr class="table-light">
 
                             <th scope="row" class="table-light">@counter</th>
 
 
-                            <td class="table-light">@inflowTransaction.Amount.ToString()</td>
-                            <td class="table-light">@inflowTransaction.Date.ToString("yyyy-MM-dd")</td>
-                            <td class="table-light text-primary">@inflowTransaction.Tag</td>
-                            <td class="table-light text-success">@inflowTransaction.Type</td>
-                            <td class="table-light">@inflowTransaction.Notes</td>
+                                <td class="table-light">@InflowItem.inflow_amount.ToString()</td>
+                                <td class="table-light">@InflowItem.inflow_date.ToString("yyyy-MM-dd")</td>
+                                <td class="table-light text-primary">@InflowItem.inflow_tag</td>
+                                <td class="table-light text-success">@InflowItem.inflow_label</td>
+                                <td class="table-light">@InflowItem.inflow_note</td>
                         </tr>
                         counter++;
                         }
@@ -80,26 +85,47 @@
 
 
 @code {
-    public class inflowTransaction
-    {
-        public string Description { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public string Type { get; set; }
-        public string Labels { get; set; }
-        public string Notes { get; set; }
-        public string Tag { get; set; }
-    }
-    private bool showTransactionModal = false;
-    private inflowTransaction newInflowTransaction = new inflowTransaction();
-    private List<inflowTransaction> inflowTransactions = new List<inflowTransaction>()
-    {
-        new inflowTransaction {  Amount = 150, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery"   },
-        new inflowTransaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery" },
-        new inflowTransaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Bill" }
-    };
+
     private void OpenTransaction()
     {
         navigationManager.NavigateTo("/AddTransaction");
+    }
+    private decimal totalInflow;
+    private decimal totalOutflow;
+    private decimal total;
+    private string errorMessage;
+    private List<Inflow> InflowItems = new List<Inflow>();
+    protected override async Task OnInitializedAsync()
+    {
+        await Total();
+        await InflowList();
+    }
+    private async Task Total()
+    {
+        try
+        {
+            totalInflow = await dashboardService.CalculateTotalInflowAsync();
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync();
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync();
+            total = totalInflow + TotalDebt - totalOutflow;
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please refresh the page.";
+        }
+    }
+    private async Task InflowList()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            int id = authenticatedUser.user_id;
+            InflowItems = await inflowService.GetInflowsByUserIdAsync(id);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please refresh the page.";
+        }
     }
 }

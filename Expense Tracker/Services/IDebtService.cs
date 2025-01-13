@@ -11,5 +11,6 @@ namespace Expense_Tracker.Services
         Task SaveDebtAsync(List<Debt> debtDetails);
         Task<List<Debt>> LoadDebtAsync();
         Task AddDebtAsync(Debt debt);
+        Task<List<Debt>> GetDebtsByUserIdAsync(int userId);
      }
 }

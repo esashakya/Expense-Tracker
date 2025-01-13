@@ -193,5 +193,18 @@
     "debt_status": "Pending",
     "debt_source": "ram",
     "cleared": false
+  },
+  {
+    "debtId": 16,
+    "user_id": 2,
+    "debt_amount": 100,
+    "debt_date": "2025-01-14T00:00:00",
+    "debt_tag": "Clothes",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-14T00:00:00",
+    "debt_status": "Pending",
+    "debt_source": "Rosie",
+    "cleared": false
   }
 ]

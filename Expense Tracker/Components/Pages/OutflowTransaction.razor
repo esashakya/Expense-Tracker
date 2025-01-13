@@ -1,10 +1,16 @@
 ﻿@page "/Outflow"
 @inject NavigationManager navigationManager
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject AuthenticationStateService _authStateService
+@inject NavigationManager navigationManager
+@inject IDashboardService dashboardService
+@inject IOutflowService outflowService
 <div class="container">
     <div class="d-flex flex-column align-items-center">
         <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH OUTFLOW</h2>
         <div class="background-blue p-3 m-4 text-center">
-            <h3 class="fw-bold"><span>Total Amount:</span>15000</h3>
+            <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
@@ -57,18 +63,18 @@
                 @{
                     int counter = 1;
                 }
-                @foreach (var outflowTransaction in outflowTransactions)
+                @foreach (var OutflowItem in OutflowItems)
                 {
                     <tr class="table-light">
 
                         <th scope="row" class="table-light">@counter</th>
 
 
-                        <td class="table-light">@outflowTransaction.Amount.ToString()</td>
-                        <td class="table-light">@outflowTransaction.Date.ToString("yyyy-MM-dd")</td>
-                        <td class="table-light text-primary">@outflowTransaction.Tag</td>
-                        <td class="table-light text-warning">@outflowTransaction.Type</td>
-                        <td class="table-light">@outflowTransaction.Notes</td>
+                        <td class="table-light">@OutflowItem.outflow_amount.ToString()</td>
+                        <td class="table-light">@OutflowItem.outflow_date.ToString("yyyy-MM-dd")</td>
+                        <td class="table-light text-primary">@OutflowItem.outflow_tag</td>
+                        <td class="table-light text-warning">@OutflowItem.outflow_label</td>
+                        <td class="table-light">@OutflowItem.outflow_note</td>
                     </tr>
                     counter++;
                 }
@@ -79,25 +85,48 @@
 </div>
 
 @code {
-    public class outflowTransaction
-    {
-        public string Description { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public string Type { get; set; }
-        public string Labels { get; set; }
-        public string Notes { get; set; }
-        public string Tag { get; set; }
-    }
-    private outflowTransaction newOutflowTransaction = new outflowTransaction();
-    private List<outflowTransaction> outflowTransactions = new List<outflowTransaction>()
-    {
-        new outflowTransaction {  Amount = 150, Date = DateTime.Parse("2024-12-25"), Type = "Debit", Tag = "Grocery"   },
-        new outflowTransaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), Type = "Debit", Tag = "Grocery" },
-        new outflowTransaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), Type = "Debit", Tag = "Bill" }
-    };
+   
     private void OpenTransaction()
     {
         navigationManager.NavigateTo("/AddTransaction");
+    }
+    
+    private decimal totalInflow;
+    private decimal totalOutflow;
+    private decimal total;
+    private string errorMessage;
+    private List<Outflow> OutflowItems = new List<Outflow>();
+    protected override async Task OnInitializedAsync()
+    {
+        await Total();
+        await OutflowList();
+    }
+    private async Task Total()
+    {
+        try
+        {
+            totalInflow = await dashboardService.CalculateTotalInflowAsync();
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync();
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync();
+            total = totalInflow + TotalDebt - totalOutflow;
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please refresh the page.";
+        }
+    }
+    private async Task OutflowList()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            int id = authenticatedUser.user_id;
+            OutflowItems = await outflowService.GetOutflowsByUserIdAsync(id);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please refresh the page.";
+        }
     }
 }

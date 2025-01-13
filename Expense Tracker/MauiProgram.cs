@@ -22,6 +22,7 @@ namespace Expense_Tracker
             builder.Services.AddSingleton<IInflowService, InflowService>();
             builder.Services.AddSingleton<IOutflowService, OutflowService>();
             builder.Services.AddSingleton<IDebtService, DebtService>();
+            builder.Services.AddSingleton<IDashboardService, DashboardService>();
             builder.Services.AddSingleton<AuthenticationStateService>();
 
 #if DEBUG

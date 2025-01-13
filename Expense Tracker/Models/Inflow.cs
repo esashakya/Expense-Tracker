@@ -11,7 +11,7 @@ namespace Expense_Tracker.Models
     {
         public int inflowId { get; set; }
         public int user_id { get; set; }
-        public int inflow_amount {  get; set; } 
+        public decimal inflow_amount {  get; set; } 
         public DateTime inflow_date { get; set; }
         public string inflow_tag {  get; set; }
         public string custom_inflow_tag { get; set; }

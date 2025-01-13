@@ -1,10 +1,21 @@
 ﻿@page "/Debt"
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject AuthenticationStateService _authStateService
 @inject NavigationManager navigationManager
+@inject IDashboardService dashboardService
+@inject IDebtService debtService
 <div class="container">
     <div class="d-flex flex-column align-items-center">
         <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH DEBT</h2>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class=" shadow  p-3  mb-2 align-self-center" style="background-color: #197dca; border-radius: 10px;">
+                <p class="text-light text-center  fw-bold fs-5">@errorMessage</p>
+            </div>
+        }
         <div class="background-blue p-3 m-4 text-center">
-            <h3 class="fw-bold"><span>Total Amount:</span>15000</h3>
+            <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
@@ -60,22 +71,22 @@
                 @{
                     int ncounter = 1;
                 }
-                @foreach (var DebtTransaction in DebtTransactions)
+                @foreach (var DebtItem in DebtItems)
                 {
                     <tr class="table-light">
 
                         <th scope="row" class="table-light">@ncounter</th>
 
 
-                        <td class="table-light">@DebtTransaction.Amount.ToString()</td>
-                        <td class="table-light">@DebtTransaction.Date.ToString("yyyy-MM-dd")</td>
-                        <td class="table-light">@DebtTransaction.DueDate.ToString("yyyy-MM-dd")</td>
-                        <td class="table-light text-primary">@DebtTransaction.Tag</td>
-                        <td class="table-light text-warning">@DebtTransaction.Labels</td>
-                        <td class="table-light">@DebtTransaction.Notes</td>
-                        <td class="table-light">@DebtTransaction.Source</td>
-                        <td class="table-light"><div class="@(DebtTransaction.Status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtTransaction.Status</div></td>
-                        <td class="table-light"><div class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;">@DebtTransaction.Clear</div></td>
+                        <td class="table-light">@DebtItem.debt_amount.ToString()</td>
+                        <td class="table-light">@DebtItem.debt_date.ToString("yyyy-MM-dd")</td>
+                        <td class="table-light">@DebtItem.debt_duedate.ToString("yyyy-MM-dd")</td>
+                        <td class="table-light text-primary">@DebtItem.debt_tag</td>
+                        <td class="table-light text-warning">@DebtItem.debt_label</td>
+                        <td class="table-light">@DebtItem.debt_label</td>
+                        <td class="table-light">@DebtItem.debt_source</td>
+                        <td class="table-light"><div class="@(DebtItem.debt_status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtItem.debt_status</div></td>
+                        <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(DebtItem)" >Clear</button></td>
                     </tr>
                     ncounter++;
                 }
@@ -86,26 +97,59 @@
 </div>
 
 @code {
-    public class DebtTransaction
-    {
-        public DateTime DueDate { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public string Status { get; set; }
-        public string Labels { get; set; }
-        public string Notes { get; set; }
-        public string Source { get; set; }
-        public string Tag { get; set; }
-        public string Clear { get; set; }
-    }
-    private List<DebtTransaction> DebtTransactions = new List<DebtTransaction>()
-    {
-        new DebtTransaction {  Amount = 1500, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Grocery", Notes="Finish money",Source="Biren",Clear="clear", Status="Pending"  },
-        new DebtTransaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Grocery", Notes="Finish money",Source="Biren",Clear="clear", Status="Pending"  },
-        new DebtTransaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), DueDate = DateTime.Parse("2024-12-27"), Labels = "Debit", Tag = "Bill", Notes="Finish money",Source="Biren",Clear="clear", Status="Clear"  }
-    };
+
     private void OpenTransaction()
     {
         navigationManager.NavigateTo("/AddTransaction");
+    }
+    private decimal totalInflow;
+    private decimal totalOutflow;
+    private decimal total;
+    private string errorMessage;
+
+    private List<Debt> DebtItems = new List<Debt>();
+    protected override async Task OnInitializedAsync()
+    {
+        await Total();
+        await DebtList();
+    }
+    private async Task Total()
+    {
+        try
+        {
+            totalInflow = await dashboardService.CalculateTotalInflowAsync();
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync();
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync();
+            total = totalInflow + TotalDebt - totalOutflow;
+
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }
+    private async Task DebtList()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
+            DebtItems = await debtService.GetDebtsByUserIdAsync(id); //provide the loggedin user id as parameter
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }
+    private async Task ClearDebt(Debt DebtItem)
+    {
+        if (DebtItem.debt_status == "Pending")
+        {
+            DebtItem.debt_status = "Cleared";
+        }
+        else
+        {
+            errorMessage = "Already cleared";
+        }
     }
 }

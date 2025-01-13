@@ -45,7 +45,7 @@ namespace Expense_Tracker.Services
             }
         }
 
-        public async Task<List<Inflow>> GetTasksByUserIdAsync(int userId)
+        public async Task<List<Inflow>> GetInflowsByUserIdAsync(int userId)
         {
             try
             {

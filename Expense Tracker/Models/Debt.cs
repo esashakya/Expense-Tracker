@@ -10,7 +10,7 @@ namespace Expense_Tracker.Models
     {
         public int debtId { get; set; }
         public int user_id { get; set; }
-        public int debt_amount { get; set; }
+        public decimal debt_amount { get; set; }
         public DateTime debt_date { get; set; }
         public string debt_tag { get; set; }
         public string debt_label { get; set; }

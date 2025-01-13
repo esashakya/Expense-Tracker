@@ -10,7 +10,7 @@ namespace Expense_Tracker.Models
     {
         public int outflowId { get; set; }
         public int user_id { get; set; }
-        public int outflow_amount { get; set; }
+        public decimal outflow_amount { get; set; }
         public DateTime outflow_date { get; set; }
         public string outflow_tag { get; set; }
         public string outflow_label { get; set; }

@@ -34,7 +34,7 @@ namespace Expense_Tracker.Services
             }
             catch (IOException ioEx)
             {
-                Console.WriteLine($"I/O error while loading users: {ioEx.Message}");
+                Console.WriteLine($"I/O error while loading transaction: {ioEx.Message}");
                 return new List<Debt>();
             }
             catch (Exception ex)
@@ -51,6 +51,21 @@ namespace Expense_Tracker.Services
                 throw new UnauthorizedAccessException("User is not authenticated.");
             }
             return loggedUser.user_id; // user id is returned
+        }
+        public async Task<List<Debt>> GetDebtsByUserIdAsync(int userId)
+        {
+            try
+            {
+                var transactions = await LoadDebtAsync();
+
+                return (transactions ?? new List<Debt>()).Where(t => t.user_id == userId).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                return new List<Debt>();
+            }
         }
         public async Task AddDebtAsync(Debt debt)
         {

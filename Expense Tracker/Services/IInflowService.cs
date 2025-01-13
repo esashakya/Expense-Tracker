@@ -12,5 +12,6 @@ namespace Expense_Tracker.Services
         Task SaveInflowAsync(List<Inflow> inflowDetails);
         Task<List<Inflow>> LoadInflowAsync();
         Task AddInflowAsync(Inflow inflow);
+        Task<List<Inflow>> GetInflowsByUserIdAsync(int userId);
     }
 }
