@@ -94,10 +94,11 @@ namespace Expense_Tracker.Services
                             var outflow = new Outflow
                             {
                                 user_id = debt.user_id,
+                                outflow_title = debt.debt_title,
                                 outflow_amount = debt.debt_amount,
                                 outflow_date = debt.debt_date,
                                 outflow_note = debt.debt_note,
-                                outflow_label = debt.debt_label,
+                                outflow_label = "Outflow",
                                 outflow_tag = debt.debt_tag,
 
                             };

@@ -41,9 +41,11 @@
                             Sort By
                         </button>
                         <ul class="dropdown-menu" >
-                            <li><a class="dropdown-item" href="#">Date</a></li>
-                            <li><a class="dropdown-item" href="#">Highest</a></li>
-                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                            <li><a class="dropdown-item" @onclick="LatestDateInflow">Latest Date</a></li>
+                            <li><a class="dropdown-item" @onclick="OldestDateInflow">Oldest Date</a></li>
+                            <li><a class="dropdown-item" @onclick="DescInflow">Highest</a></li>
+                            <li><a class="dropdown-item" @onclick="LowestInflow">Lowest</a></li>
+                             <li><a class="dropdown-item" @onclick="TagInflow">Tag</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,6 +53,7 @@
                   <thead>
                      <tr class="table-primary">
                       <th scope="col">Sn.no</th>
+                      <th scope="col">Title</th>
                       <th scope="col">Amount</th>
                       <th scope="col">Date</th>
                       <th scope="col">Tag</th>
@@ -68,7 +71,7 @@
 
                             <th scope="row" class="table-light">@counter</th>
 
-
+                                <td class="table-light">@InflowItem.inflow_title</td>
                                 <td class="table-light">@InflowItem.inflow_amount.ToString()</td>
                                 <td class="table-light">@InflowItem.inflow_date.ToString("yyyy-MM-dd")</td>
                                 <td class="table-light text-primary">@InflowItem.inflow_tag</td>
@@ -129,5 +132,25 @@
         {
             errorMessage = "Please refresh the page.";
         }
+    }
+    private async Task DescInflow()
+    {
+        InflowItems = InflowItems.OrderByDescending(d => d.inflow_amount).ToList();
+    }
+    private async Task LowestInflow()
+    {
+        InflowItems = InflowItems.OrderBy(d => d.inflow_amount).ToList();
+    }
+    private async Task LatestDateInflow()
+    {
+        InflowItems = InflowItems.OrderByDescending(d => d.inflow_date).ToList();
+    }
+    private async Task OldestDateInflow()
+    {
+        InflowItems = InflowItems.OrderBy(d => d.inflow_date).ToList();
+    }
+    private async Task TagInflow()
+    {
+        InflowItems = InflowItems.OrderByDescending(d => d.inflow_tag).ToList();
     }
 }

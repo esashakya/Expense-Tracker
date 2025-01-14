@@ -5,6 +5,7 @@
 @inject NavigationManager navigationManager
 @inject IDashboardService dashboardService
 @inject IDebtService debtService
+@using System.Text.Json;
 @*header *@
 
 <div class="container mt-4">
@@ -19,7 +20,7 @@
         </div>
         <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
             <h3 class="text-center">Debt</h3>
-            <h5 class="text-center">@TotalDebt</h5>
+            <h5 class="text-center">@totalDebt</h5>
         </div>
     </div>
     <div class="row justify-content-around">
@@ -32,11 +33,11 @@
         </div>
         <div class="col-md-3 align-self-center bottom-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;color:#007c29;">
             <h3 class="text-center">Clear Debt</h3>
-            <h5 class="text-center">@TotalCleared</h5>
+            <h5 class="text-center">@totalCleared</h5>
         </div>
         <div class="col-md-3 align-self-center bottom-warning-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa; color: #de3b40;">
             <h3 class="text-center">Remaining Debt</h3>
-            <h5 class="text-center">@TotalPending</h5>
+            <h5 class="text-center">@totalPending</h5>
         </div>
     </div>
 </div>
@@ -55,10 +56,19 @@
                         <button class="btn " type="button"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
                             Sort By
                         </button>
+                        @{
+                            string date = "Date";
+                            string transactionInflow = "Inflow";
+                            string transactionOutflow = "Outflow";
+                            string transactionDebt = "Debt";
+                            string tag = "Tag";
+                        }
                         <ul class="dropdown-menu" >
-                            <li><a class="dropdown-item" href="#">Date</a></li>
-                            <li><a class="dropdown-item" href="#">Highest</a></li>
-                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(date)">Date</button></li>
+                            <li><button class="dropdown-item" @onclick="() =>SortData(transactionInflow)">Inflow</button></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(transactionOutflow)">Outflow</button></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(transactionDebt)">Debt</button></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(tag)">Tags</button></li>
                         </ul>
                     </div>
                 </div>
@@ -66,6 +76,7 @@
                   <thead>
                      <tr class="table-primary">
                       <th scope="col">Sn.no</th>
+                      <th scope="col">Title</th>
                       <th scope="col">Amount</th>
                       <th scope="col">Date</th>
                       <th scope="col">Tag</th>
@@ -76,19 +87,20 @@
                   <tbody>
                         @{
                             int counter = 1;
+                            
                         }
-                      @foreach (var transaction in transactions.Take(5))
+                        @foreach (var transaction in totalTransaction.Take(5))
                         {
                             <tr class="table-light">
 
                                 <th scope="row" class="table-light">@counter</th>
 
-
-                                <td class="table-light">@transaction.Amount.ToString()</td>
-                                <td class="table-light">@transaction.Date.ToString("yyyy-MM-dd")</td>
-                                <td class="table-light text-primary">@transaction.Tag</td>
-                                <td class="table-light @(transaction.Type =="Credit" ? "text-success" : "text-danger" )">@transaction.Type</td>
-                                <td class="table-light">@transaction.Notes</td>
+                                <td class="table-light">@transaction.transaction_title</td>
+                                <td class="table-light">@transaction.transaction_amount.ToString()</td>
+                                <td class="table-light">@transaction.transaction_date.ToString("yyyy-MM-dd")</td>
+                                <td class="table-light text-primary">@transaction.transaction_tag</td>
+                                <td class="table-light @(transaction.transaction_label =="Credit" ? "text-success" : "text-danger" )">@transaction.transaction_label</td>
+                                <td class="table-light">@transaction.transaction_note</td>
                         </tr>
                         counter++;
                         }
@@ -110,10 +122,11 @@
              <button class="btn " type="button"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #daecfa; border-style:none; color: #171a1f;">
                             Sort By
               </button>
+                
                         <ul class="dropdown-menu" >
-                            <li><a class="dropdown-item" href="#">Date</a></li>
-                            <li><a class="dropdown-item" href="#">Highest</a></li>
-                            <li><a class="dropdown-item" href="#">Lowest</a></li>
+                            <li><a class="dropdown-item" @onclick="DatePending">Date</a></li>
+                            <li><a class="dropdown-item" @onclick="DescPending">Highest</a></li>
+                            <li><a class="dropdown-item" @onclick="LowestPending">Lowest</a></li>
                         </ul>
                     </div>
     </div>
@@ -121,6 +134,7 @@
                   <thead>
                      <tr class="table-primary">
                       <th scope="col">Sn.no</th>
+                      <th scope="col">Title</th>
                       <th scope="col">Amount</th>
                       <th scope="col">Date</th>
                       <th scope="col">Due Date</th>
@@ -134,20 +148,20 @@
                         @{
                             int ncounter = 1;
                         }
-                        @foreach (var PendingTransaction in PendingTransactions)
+                        @foreach (var PendingTransaction in debts)
                         {
                             <tr class="table-light">
 
                                 <th scope="row" class="table-light">@ncounter</th>
 
-
-                            <td class="table-light">@PendingTransaction.Amount.ToString()</td>
-                            <td class="table-light">@PendingTransaction.Date.ToString("yyyy-MM-dd")</td>
-                            <td class="table-light">@PendingTransaction.DueDate.ToString("yyyy-MM-dd")</td>
-                            <td class="table-light text-primary">@PendingTransaction.Tag</td>
-                            <td class="table-light text-warning">@PendingTransaction.Labels</td>
-                            <td class="table-light">@PendingTransaction.Notes</td>
-                            <td class="table-light"><div class="btn btn-danger" style="border-radius: 15px; margin:0;">@PendingTransaction.Status</div></td>
+                            <td class="table-light">@PendingTransaction.debt_title</td>
+                            <td class="table-light">@PendingTransaction.debt_amount.ToString()</td>
+                            <td class="table-light">@PendingTransaction.debt_date.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light">@PendingTransaction.debt_duedate.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light text-primary">@PendingTransaction.debt_tag</td>
+                            <td class="table-light text-warning">@PendingTransaction.debt_label</td>
+                            <td class="table-light">@PendingTransaction.debt_note</td>
+                            <td class="table-light"><div class="btn btn-danger" style="border-radius: 15px; margin:0;">@PendingTransaction.debt_status</div></td>
                         </tr>
                         ncounter++;
                         }
@@ -171,11 +185,48 @@
     private string errorMessage;
 
     private List<Debt> DebtItems = new List<Debt>();
+    private List<Debt> debts = new List<Debt>();
+    private List<Transaction> totalTransaction = new List<Transaction>();
+
     protected override async Task OnInitializedAsync()
     {
         await Total();
         await DebtList();
+        await AllTransaction();
+
     }
+    private async Task AllTransaction()
+    {
+        var authenticatedUser = _authStateService.GetAuthenticatedUser();
+        int id = authenticatedUser.user_id;
+        totalTransaction = await dashboardService.ListTransactions(id);
+        totalTransaction = totalTransaction.OrderBy(t => t.transaction_amount).ToList();
+    }
+    private async Task SortData(string typeSorting)
+    {
+        if (typeSorting == "Date")
+        {
+            totalTransaction = totalTransaction.OrderByDescending(t => t.transaction_date).ToList();
+        }
+        else if (typeSorting == "Inflow")
+        {
+            totalTransaction = totalTransaction.Where(t => t.transaction_label == "Inflow").OrderByDescending(t => t.transaction_amount).ToList();
+        }
+        else if (typeSorting == "Outflow")
+        {
+            totalTransaction = totalTransaction.Where(t => t.transaction_label == "Outflow").OrderByDescending(t => t.transaction_amount).ToList();
+        }
+        else if (typeSorting == "Debt")
+        {
+            totalTransaction = totalTransaction.Where(t => t.transaction_label == "Debt").OrderByDescending(t => t.transaction_amount).ToList();
+        }
+        else
+        {
+            totalTransaction = totalTransaction.OrderBy(t => t.transaction_tag).OrderByDescending(t => t.transaction_amount).ToList();
+        }
+        StateHasChanged();
+    }
+
     private async Task Total()
     {
         try
@@ -188,7 +239,7 @@
             totalDebt = TotalDebt;
             totalPending = TotalPending;
             totalCleared = TotalCleared;
-            total = totalInflow + TotalDebt - totalOutflow;
+            total = totalInflow + totalPending - totalOutflow;
 
         }
         catch (Exception ex)
@@ -203,11 +254,26 @@
             var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
             int id = authenticatedUser.user_id;
             DebtItems = await debtService.GetDebtsByUserIdAsync(id); //provide the loggedin user id as parameter
+            debts = DebtItems.Where(debt => debt.debt_status == "Pending").ToList();
+
+
         }
         catch (Exception ex)
         {
             errorMessage = "Please try again later. There is some problem while collecting debt details.";
         }
+    }
+    private async Task DescPending()
+    {
+        debts = debts.OrderByDescending(d => d.debt_amount).ToList();
+    }
+    private async Task LowestPending()
+    {
+        debts = debts.OrderBy(d => d.debt_amount).ToList();
+    }
+    private async Task DatePending()
+    {
+        debts = debts.OrderByDescending(d => d.debt_date).ToList();
     }
     
 

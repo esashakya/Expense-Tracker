@@ -7,6 +7,7 @@
     "inflow_tag": "Groceries",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "hello"
   },
   {
@@ -17,6 +18,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -27,6 +29,7 @@
     "inflow_tag": "Gadgets",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "jiij"
   },
   {
@@ -37,6 +40,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "keooo"
   },
   {
@@ -47,6 +51,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "baha"
   },
   {
@@ -57,6 +62,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "baha"
   },
   {
@@ -67,6 +73,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -77,6 +84,7 @@
     "inflow_tag": null,
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -87,6 +95,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -97,6 +106,7 @@
     "inflow_tag": "Gadgets",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -107,6 +117,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -117,6 +128,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -127,6 +139,7 @@
     "inflow_tag": "Groceries",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -137,6 +150,7 @@
     "inflow_tag": "Gadgets",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": null
   },
   {
@@ -147,6 +161,7 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "trying"
   },
   {
@@ -157,6 +172,7 @@
     "inflow_tag": "Gadgets",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "inflow completed"
   },
   {
@@ -167,6 +183,7 @@
     "inflow_tag": "Gadgets",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
     "inflow_note": "hello"
   },
   {
@@ -177,6 +194,29 @@
     "inflow_tag": "Clothes",
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
+    "inflow_title": null,
+    "inflow_note": null
+  },
+  {
+    "inflowId": 19,
+    "user_id": 3,
+    "inflow_amount": 200000,
+    "inflow_date": "2025-01-14T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": null,
+    "inflow_note": "testing"
+  },
+  {
+    "inflowId": 20,
+    "user_id": 4,
+    "inflow_amount": 5000,
+    "inflow_date": "2025-01-14T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": "salary",
     "inflow_note": null
   }
 ]

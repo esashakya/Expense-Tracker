@@ -16,6 +16,7 @@ namespace Expense_Tracker.Models
         public string inflow_tag {  get; set; }
         public string custom_inflow_tag { get; set; }
         public string inflow_label { get; set; }
+        public string inflow_title { get; set; }
         public string inflow_note {  get; set; }
 
     }

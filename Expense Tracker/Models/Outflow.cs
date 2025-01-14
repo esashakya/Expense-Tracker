@@ -13,6 +13,7 @@ namespace Expense_Tracker.Models
         public decimal outflow_amount { get; set; }
         public DateTime outflow_date { get; set; }
         public string outflow_tag { get; set; }
+        public string outflow_title { get; set; }
         public string outflow_label { get; set; }
         public string outflow_note { get; set; }
     }

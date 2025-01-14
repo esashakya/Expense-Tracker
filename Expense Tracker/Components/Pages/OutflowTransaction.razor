@@ -42,9 +42,11 @@
                     Sort By
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Date</a></li>
-                    <li><a class="dropdown-item" href="#">Highest</a></li>
-                    <li><a class="dropdown-item" href="#">Lowest</a></li>
+                    <li><a class="dropdown-item" @onclick="LatestDateOutflow">Latest Date</a></li>
+                    <li><a class="dropdown-item" @onclick="OldestDateOutflow">Oldest Date</a></li>
+                    <li><a class="dropdown-item" @onclick="DescOutflow">Highest</a></li>
+                    <li><a class="dropdown-item" @onclick="LowestOutflow">Lowest</a></li>
+                    <li><a class="dropdown-item" @onclick="TagOutflow">Tag</a></li>
                 </ul>
             </div>
         </div>
@@ -52,6 +54,7 @@
             <thead>
                 <tr class="table-primary">
                     <th scope="col">Sn.no</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Date</th>
                     <th scope="col">Tag</th>
@@ -69,7 +72,7 @@
 
                         <th scope="row" class="table-light">@counter</th>
 
-
+                        <td class="table-light">@OutflowItem.outflow_title</td>
                         <td class="table-light">@OutflowItem.outflow_amount.ToString()</td>
                         <td class="table-light">@OutflowItem.outflow_date.ToString("yyyy-MM-dd")</td>
                         <td class="table-light text-primary">@OutflowItem.outflow_tag</td>
@@ -130,5 +133,25 @@
         {
             errorMessage = "Please refresh the page.";
         }
+    }
+    private async Task DescOutflow()
+    {
+        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_amount).ToList();
+    }
+    private async Task LowestOutflow()
+    {
+        OutflowItems = OutflowItems.OrderBy(d => d.outflow_amount).ToList();
+    }
+    private async Task LatestDateOutflow()
+    {
+        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_date).ToList();
+    }
+    private async Task OldestDateOutflow()
+    {
+        OutflowItems = OutflowItems.OrderBy(d => d.outflow_date).ToList();
+    }
+    private async Task TagOutflow()
+    {
+        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_tag).ToList();
     }
 }

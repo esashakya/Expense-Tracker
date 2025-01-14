@@ -48,9 +48,13 @@
                     Sort By
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Date</a></li>
-                    <li><a class="dropdown-item" href="#">Highest</a></li>
-                    <li><a class="dropdown-item" href="#">Lowest</a></li>
+                    <li><a class="dropdown-item" @onclick="LatestDateDebt">Latest Date</a></li>
+                    <li><a class="dropdown-item" @onclick="OldestDateDebt">Oldest Date</a></li>
+                    <li><a class="dropdown-item" @onclick="LatestDueDateDebt">Latest Due Date</a></li>
+                    <li><a class="dropdown-item" @onclick="OldestDueDateDebt">Oldest Due Date</a></li>
+                    <li><a class="dropdown-item" @onclick="DescDebt">Highest</a></li>
+                    <li><a class="dropdown-item" @onclick="LowestDebt">Lowest</a></li>
+                    <li><a class="dropdown-item" @onclick="TagDebt">Tag</a></li>
                 </ul>
             </div>
         </div>
@@ -58,6 +62,7 @@
             <thead>
                 <tr class="table-primary">
                     <th scope="col">Sn.no</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Date</th>
                     <th scope="col">Due Date</th>
@@ -79,13 +84,13 @@
 
                         <th scope="row" class="table-light">@ncounter</th>
 
-
+                        <td class="table-light">@DebtItem.debt_title</td>
                         <td class="table-light">@DebtItem.debt_amount.ToString()</td>
                         <td class="table-light">@DebtItem.debt_date.ToString("yyyy-MM-dd")</td>
                         <td class="table-light">@DebtItem.debt_duedate.ToString("yyyy-MM-dd")</td>
                         <td class="table-light text-primary">@DebtItem.debt_tag</td>
                         <td class="table-light text-warning">@DebtItem.debt_label</td>
-                        <td class="table-light">@DebtItem.debt_label</td>
+                        <td class="table-light">@DebtItem.debt_note</td>
                         <td class="table-light">@DebtItem.debt_source</td>
                         <td class="table-light"><div class="@(DebtItem.debt_status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtItem.debt_status</div></td>
                         <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(DebtItem)">Clear</button></td>
@@ -162,4 +167,33 @@
             errorMessage = "Already cleared";
         }
     }
+    private async Task LatestDateDebt()
+    {
+        DebtItems = DebtItems.OrderByDescending(d => d.debt_date).ToList();
+    }
+    private async Task OldestDateDebt()
+    {
+        DebtItems = DebtItems.OrderBy(d => d.debt_date).ToList();
+    }
+    private async Task LatestDueDateDebt()
+    {
+        DebtItems = DebtItems.OrderByDescending(d => d.debt_duedate).ToList();
+    }
+    private async Task OldestDueDateDebt()
+    {
+        DebtItems = DebtItems.OrderBy(d => d.debt_duedate).ToList();
+    }
+    private async Task DescDebt()
+    {
+        DebtItems = DebtItems.OrderByDescending(d => d.debt_amount).ToList();
+    }
+    private async Task LowestDebt()
+    {
+        DebtItems = DebtItems.OrderBy(d => d.debt_amount).ToList();
+    }
+    private async Task TagDebt()
+    {
+        DebtItems = DebtItems.OrderBy(d => d.debt_tag).ToList();
+    }
 }
+ 

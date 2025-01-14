@@ -13,6 +13,7 @@ namespace Expense_Tracker.Models
         public decimal debt_amount { get; set; }
         public DateTime debt_date { get; set; }
         public string debt_tag { get; set; }
+        public string debt_title { get; set; }
         public string debt_label { get; set; }
         public string debt_note { get; set; }
         public DateTime debt_duedate { get; set; }

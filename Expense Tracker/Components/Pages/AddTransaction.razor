@@ -5,6 +5,7 @@
 @inject IOutflowService outflowService
 @inject IInflowService inflowService
 @inject IDebtService debtService
+@inject IDashboardService dashboardService
 <div class="container">
   <h2 class="text-center" style="color: #0f4c7b;">Add Transaction</h2>
     @if (!string.IsNullOrEmpty(displayMessage))
@@ -28,6 +29,10 @@
              </select>
 
          </div>
+        <div class="mb-3 ">
+            <label for="Title" class="form-label">Title</label>
+            <input type="text" class="form-control" @bind="newTransaction.title" />
+        </div>
          <div class="mb-3">
              <label for="Date" class="form-label">Date</label>
             <input type="date" class="form-control" @bind="newTransaction.date" />
@@ -118,13 +123,17 @@
         public string label { get; set; }
         public int amount { get; set; }
         public int user_id { get; set; }
+        public string title { get; set; }
+
 
     }
     private string displayMessage;
     private string successMessage;
     private string errorMessage;
     private string messageType;
+    private decimal totalInflow;
     private Transaction newTransaction = new Transaction();
+
     private async Task AddNewTransaction()
     {
 
@@ -136,14 +145,15 @@
                 errorMessage = "Please sign in to the system";
                 messageType = "Error";
 
-                
+
             }
 
             else
             {
 
                 newTransaction.user_id = authenticatedUser.user_id;
-                if (newTransaction.amount <= 0 || newTransaction.date == DateTime.MinValue || newTransaction.label == null || newTransaction.chosen_tag == null || (newTransaction.label == "Debt" && (newTransaction.duedate == DateTime.MinValue || newTransaction.source == null)))
+                decimal totalInflow = await dashboardService.CalculateTotalInflowAsync(newTransaction.user_id);
+                if (newTransaction.amount <= 0 || newTransaction.date == DateTime.MinValue || newTransaction.label == null || newTransaction.chosen_tag == null || newTransaction.title == null || (newTransaction.label == "Debt" && (newTransaction.duedate == DateTime.MinValue || newTransaction.source == null)))
                 {
                     errorMessage = "Fill all the necessary details.";
                     messageType = "Error";
@@ -156,6 +166,7 @@
                         var inflow = new Inflow
                             {
                                 user_id = newTransaction.user_id,
+                                inflow_title = newTransaction.title,
                                 inflow_amount = newTransaction.amount,
                                 inflow_date = newTransaction.date,
                                 inflow_note = newTransaction.note,
@@ -164,12 +175,15 @@
 
                             };
                         await inflowService.AddInflowAsync(inflow);
+                        successMessage = "Successfully added Inflow transaction";
+                        messageType = "Success";
                     }
-                    else if (newTransaction.label == "Outflow")
+                    else if (newTransaction.label == "Outflow" && newTransaction.amount <= totalInflow)
                     {
                         var outflow = new Outflow
                             {
                                 user_id = newTransaction.user_id,
+                                outflow_title = newTransaction.title,
                                 outflow_amount = newTransaction.amount,
                                 outflow_date = newTransaction.date,
                                 outflow_note = newTransaction.note,
@@ -178,12 +192,15 @@
 
                             };
                         await outflowService.AddOutflowAsync(outflow);
+                        successMessage = "Successfully added Outflow transaction";
+                        messageType = "Success";
                     }
                     else if (newTransaction.label == "Debt")
                     {
                         var debt = new Debt
                             {
                                 user_id = newTransaction.user_id,
+                                debt_title = newTransaction.title,
                                 debt_amount = newTransaction.amount,
                                 debt_date = newTransaction.date,
                                 debt_note = newTransaction.note,
@@ -197,11 +214,18 @@
 
                             };
                         await debtService.AddDebtAsync(debt);
+                        successMessage = "Successfully added Debt transaction";
+                        messageType = "Success";
                     }
+                    else
+                    {
+                        errorMessage = "Please enter valid data  ";
+                        messageType = "Error";
+                    }
+                    
 
 
-                    successMessage = "Successfully added transaction";
-                    messageType = "Success";
+                    
                 }
             }
         }

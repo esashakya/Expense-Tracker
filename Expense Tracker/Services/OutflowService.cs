@@ -11,9 +11,11 @@ namespace Expense_Tracker.Services
     {
         private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "OutflowTransaction.json");
         private readonly AuthenticationStateService _authStateService;
-        public OutflowService(AuthenticationStateService authStateService)
+        private readonly IDashboardService dashboardService;
+        public OutflowService(AuthenticationStateService authStateService, IDashboardService dashboardService)
         {
-            _authStateService = authStateService; 
+            _authStateService = authStateService;
+            this.dashboardService = dashboardService;
         }
         public async Task<List<Outflow>> LoadOutflowAsync()
         {
@@ -58,10 +60,20 @@ namespace Expense_Tracker.Services
             try
             {
                 outflow.user_id = GetLoggedInUserId();
+                int id = GetLoggedInUserId();
                 var transactions = await LoadOutflowAsync();
+
+                decimal totalAmount = await dashboardService.CalculateTotalInflowAsync(id); //checking if there is sufficient inflow amount to make transaction
                 outflow.outflowId = transactions.Count > 0 ? transactions.Max(t => t.outflowId) + 1 : 1;
-                transactions.Add(outflow);
-                await SaveOutflowAsync(transactions);
+                if (totalAmount >= outflow.outflow_amount)
+                {
+                    transactions.Add(outflow);
+                    await SaveOutflowAsync(transactions);
+                }
+                else
+                {
+                    Console.WriteLine($"Error adding task");
+                }
             }
             catch (Exception ex)
             {

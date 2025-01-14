@@ -5,6 +5,7 @@
     "outflow_amount": 1200,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Groceries",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": "hello"
   },
@@ -14,6 +15,7 @@
     "outflow_amount": 12000,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": "testing"
   },
@@ -23,6 +25,7 @@
     "outflow_amount": 10,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Gadgets",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -32,6 +35,7 @@
     "outflow_amount": 2000,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -41,6 +45,7 @@
     "outflow_amount": 2500,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -50,6 +55,7 @@
     "outflow_amount": 250,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -59,6 +65,7 @@
     "outflow_amount": 100,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": null,
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -68,6 +75,7 @@
     "outflow_amount": 0,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": null,
+    "outflow_title": null,
     "outflow_label": "Outflow",
     "outflow_note": null
   },
@@ -77,6 +85,7 @@
     "outflow_amount": 100,
     "outflow_date": "2025-01-14T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -86,6 +95,7 @@
     "outflow_amount": 10,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -95,6 +105,7 @@
     "outflow_amount": 2000,
     "outflow_date": "0001-01-15T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -104,6 +115,7 @@
     "outflow_amount": 150,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -113,6 +125,7 @@
     "outflow_amount": 20000,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": "baha"
   },
@@ -122,6 +135,7 @@
     "outflow_amount": 2000,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -131,6 +145,7 @@
     "outflow_amount": 1500,
     "outflow_date": "0001-01-10T00:00:00",
     "outflow_tag": "Gadgets",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -140,6 +155,7 @@
     "outflow_amount": 1500,
     "outflow_date": "0001-01-10T00:00:00",
     "outflow_tag": "Gadgets",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
   },
@@ -149,7 +165,168 @@
     "outflow_amount": 2000,
     "outflow_date": "2025-01-13T00:00:00",
     "outflow_tag": "Clothes",
+    "outflow_title": null,
     "outflow_label": "Debt",
     "outflow_note": null
+  },
+  {
+    "outflowId": 18,
+    "user_id": 1,
+    "outflow_amount": 20000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Debt",
+    "outflow_note": "baha"
+  },
+  {
+    "outflowId": 19,
+    "user_id": 3,
+    "outflow_amount": 200000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 20,
+    "user_id": 3,
+    "outflow_amount": 200,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 21,
+    "user_id": 3,
+    "outflow_amount": 15000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": "trial"
+  },
+  {
+    "outflowId": 22,
+    "user_id": 3,
+    "outflow_amount": 20000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 23,
+    "user_id": 1,
+    "outflow_amount": 1500,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": "heheheheh"
+  },
+  {
+    "outflowId": 24,
+    "user_id": 1,
+    "outflow_amount": 12000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 25,
+    "user_id": 1,
+    "outflow_amount": 12000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 26,
+    "user_id": 1,
+    "outflow_amount": 12000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 27,
+    "user_id": 1,
+    "outflow_amount": 12000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 28,
+    "user_id": 1,
+    "outflow_amount": 500000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 29,
+    "user_id": 1,
+    "outflow_amount": 250,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": "testing"
+  },
+  {
+    "outflowId": 30,
+    "user_id": 1,
+    "outflow_amount": 80,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 31,
+    "user_id": 1,
+    "outflow_amount": 2000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 32,
+    "user_id": 4,
+    "outflow_amount": 600,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": "try",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 33,
+    "user_id": 4,
+    "outflow_amount": 1500,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": "moneyyyyy",
+    "outflow_label": "Outflow",
+    "outflow_note": "moneyy"
   }
 ]
