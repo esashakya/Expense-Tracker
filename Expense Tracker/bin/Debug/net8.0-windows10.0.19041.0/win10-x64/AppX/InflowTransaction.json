@@ -158,5 +158,25 @@
     "custom_inflow_tag": null,
     "inflow_label": "Inflow",
     "inflow_note": "inflow completed"
+  },
+  {
+    "inflowId": 17,
+    "user_id": 3,
+    "inflow_amount": 1200,
+    "inflow_date": "2025-01-14T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": "hello"
+  },
+  {
+    "inflowId": 18,
+    "user_id": 3,
+    "inflow_amount": 100,
+    "inflow_date": "0001-01-25T00:00:00",
+    "inflow_tag": "Clothes",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_note": null
   }
 ]

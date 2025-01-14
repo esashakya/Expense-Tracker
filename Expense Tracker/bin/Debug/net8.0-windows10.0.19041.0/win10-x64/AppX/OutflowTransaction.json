@@ -70,5 +70,86 @@
     "outflow_tag": null,
     "outflow_label": "Outflow",
     "outflow_note": null
+  },
+  {
+    "outflowId": 9,
+    "user_id": 2,
+    "outflow_amount": 100,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 10,
+    "user_id": 1,
+    "outflow_amount": 10,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 11,
+    "user_id": 1,
+    "outflow_amount": 2000,
+    "outflow_date": "0001-01-15T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 12,
+    "user_id": 1,
+    "outflow_amount": 150,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 13,
+    "user_id": 1,
+    "outflow_amount": 20000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": "baha"
+  },
+  {
+    "outflowId": 14,
+    "user_id": 1,
+    "outflow_amount": 2000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 15,
+    "user_id": 1,
+    "outflow_amount": 1500,
+    "outflow_date": "0001-01-10T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 16,
+    "user_id": 1,
+    "outflow_amount": 1500,
+    "outflow_date": "0001-01-10T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_label": "Debt",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 17,
+    "user_id": 1,
+    "outflow_amount": 2000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_label": "Debt",
+    "outflow_note": null
   }
 ]

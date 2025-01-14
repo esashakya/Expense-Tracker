@@ -12,5 +12,6 @@ namespace Expense_Tracker.Services
         Task AddOutflowAsync(Outflow outflow);
         Task<List<Outflow>> LoadOutflowAsync();
         Task<List<Outflow>> GetOutflowsByUserIdAsync(int userId);
+        
     }
 }

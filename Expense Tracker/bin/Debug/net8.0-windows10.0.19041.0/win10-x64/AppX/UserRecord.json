@@ -16,5 +16,14 @@
     "currencyType": "Rupees",
     "user_email": "pharsa@gmail.com",
     "total_amount": 0
+  },
+  {
+    "user_id": 3,
+    "retypePassword": "2222",
+    "username": "coursework2222",
+    "password": "7e4p\u002BIJUO5VmILJtDuDn6VA5mxxCIvXeBeBkJbTJlek=",
+    "currencyType": null,
+    "user_email": "coursework2222@gmail.com",
+    "total_amount": 0
   }
 ]

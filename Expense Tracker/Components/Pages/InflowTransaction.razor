@@ -104,9 +104,11 @@
     {
         try
         {
-            totalInflow = await dashboardService.CalculateTotalInflowAsync();
-            totalOutflow = await dashboardService.CalculateTotalOutflowAsync();
-            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync();
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            int id = authenticatedUser.user_id;
+            totalInflow = await dashboardService.CalculateTotalInflowAsync(id);
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
             total = totalInflow + TotalDebt - totalOutflow;
 
         }

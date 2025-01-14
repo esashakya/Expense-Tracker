@@ -26,7 +26,7 @@ namespace Expense_Tracker.Services
             }
             return loggedUser.user_id; // user id is returned
         }
-        public async Task<decimal> CalculateTotalInflowAsync()
+        public async Task<decimal> CalculateTotalInflowAsync(int id)
         {
             try
             {
@@ -34,13 +34,14 @@ namespace Expense_Tracker.Services
                 {
                     return 0;
                 }
-                int LoggedinUser = GetLoggedInUserId();
+                
                 var json = await File.ReadAllTextAsync(InflowTransactionFilePath);
                 var inflows = JsonSerializer.Deserialize<List<Inflow>>(json) ?? new List<Inflow>();
 
                
-                decimal TotalInflow = inflows.Where(InflowObject => InflowObject.user_id == LoggedinUser).Sum(InflowObject => (decimal)InflowObject.inflow_amount);
+                decimal TotalInflow = inflows.Where(InflowObject => InflowObject.user_id == id).Sum(InflowObject => (decimal)InflowObject.inflow_amount);
                 return TotalInflow;
+                
             }
             catch (JsonException jsonEx)
             {
@@ -53,7 +54,8 @@ namespace Expense_Tracker.Services
                 return 0; 
             }
         }
-        public async Task<decimal> CalculateTotalOutflowAsync()
+        
+        public async Task<decimal> CalculateTotalOutflowAsync(int id)
         {
             try
             {
@@ -66,7 +68,7 @@ namespace Expense_Tracker.Services
                 var outflows = JsonSerializer.Deserialize<List<Outflow>>(json) ?? new List<Outflow>();
 
 
-                decimal TotalOutflow = outflows.Where(OutflowObject => OutflowObject.user_id == LoggedinUser).Sum(OutflowObject => (decimal)OutflowObject.outflow_amount);
+                decimal TotalOutflow = outflows.Where(OutflowObject => OutflowObject.user_id == id).Sum(OutflowObject => (decimal)OutflowObject.outflow_amount);
                 return TotalOutflow;
             }
             catch (JsonException jsonEx)
@@ -80,7 +82,7 @@ namespace Expense_Tracker.Services
                 return 0;
             }
         }
-        public async Task<(decimal TotalDebt, decimal TotalPending, decimal TotalCleared)> CalculateTotalDebtAsync()
+        public async Task<(decimal TotalDebt, decimal TotalPending, decimal TotalCleared)> CalculateTotalDebtAsync(int id)
         {
             try
             {
@@ -93,9 +95,9 @@ namespace Expense_Tracker.Services
                 var debts = JsonSerializer.Deserialize<List<Debt>>(json) ?? new List<Debt>();
 
 
-                decimal TotalDebt = debts.Sum(DebtObject => (decimal)DebtObject.debt_amount);
-                decimal TotalPending = debts.Where(DebtObject => !DebtObject.cleared && DebtObject.user_id == LoggedinUser).Sum(DebtObject => (decimal)DebtObject.debt_amount); //amount which is not cleared is calculated
-                decimal TotalCleared = debts.Where(DebtObject => DebtObject.cleared && DebtObject.user_id == LoggedinUser).Sum(DebtObject => (decimal)DebtObject.debt_amount); //cleared debts
+                decimal TotalDebt = debts.Where(DebtObject => !DebtObject.cleared && DebtObject.user_id == id).Sum(DebtObject => (decimal)DebtObject.debt_amount);
+                decimal TotalPending = debts.Where(DebtObject => !DebtObject.cleared && DebtObject.user_id == id).Sum(DebtObject => (decimal)DebtObject.debt_amount); //amount which is not cleared is calculated
+                decimal TotalCleared = debts.Where(DebtObject => DebtObject.cleared && DebtObject.user_id == id).Sum(DebtObject => (decimal)DebtObject.debt_amount); //cleared debts
                 return (TotalDebt, TotalPending, TotalCleared);
             }
             catch (JsonException jsonEx)

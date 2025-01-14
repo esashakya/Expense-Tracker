@@ -8,9 +8,10 @@ namespace Expense_Tracker.Services
 {
     public interface IDashboardService
     {
-        Task<decimal> CalculateTotalInflowAsync();
-        Task<decimal> CalculateTotalOutflowAsync();
-        Task<(decimal TotalDebt, decimal TotalPending, decimal TotalCleared)> CalculateTotalDebtAsync();
+        Task<decimal> CalculateTotalInflowAsync(int id);
+        Task<decimal> CalculateTotalOutflowAsync(int id);
+        Task<(decimal TotalDebt, decimal TotalPending, decimal TotalCleared)> CalculateTotalDebtAsync(int id);
+        
 
     }
 }

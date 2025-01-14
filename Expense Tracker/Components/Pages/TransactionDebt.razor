@@ -5,6 +5,8 @@
 @inject NavigationManager navigationManager
 @inject IDashboardService dashboardService
 @inject IDebtService debtService
+
+
 <div class="container">
     <div class="d-flex flex-column align-items-center">
         <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH DEBT</h2>
@@ -86,7 +88,7 @@
                         <td class="table-light">@DebtItem.debt_label</td>
                         <td class="table-light">@DebtItem.debt_source</td>
                         <td class="table-light"><div class="@(DebtItem.debt_status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtItem.debt_status</div></td>
-                        <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(DebtItem)" >Clear</button></td>
+                        <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(DebtItem)">Clear</button></td>
                     </tr>
                     ncounter++;
                 }
@@ -117,15 +119,17 @@
     {
         try
         {
-            totalInflow = await dashboardService.CalculateTotalInflowAsync();
-            totalOutflow = await dashboardService.CalculateTotalOutflowAsync();
-            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync();
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            int id = authenticatedUser.user_id;
+            totalInflow = await dashboardService.CalculateTotalInflowAsync(id);
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
             total = totalInflow + TotalDebt - totalOutflow;
 
         }
         catch (Exception ex)
         {
-            
+            errorMessage = "Please try again later. There is some problem while calculating the total";
         }
     }
     private async Task DebtList()
@@ -138,14 +142,20 @@
         }
         catch (Exception ex)
         {
-            
+            errorMessage = "Please try again later. There is some problem while collecting debt details.";
         }
     }
     private async Task ClearDebt(Debt DebtItem)
     {
         if (DebtItem.debt_status == "Pending")
         {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
             DebtItem.debt_status = "Cleared";
+            await debtService.ChangeDebtStatusAsync(DebtItem.debtId, id);
+            await Total();
+            await DebtList();
+            StateHasChanged();
         }
         else
         {

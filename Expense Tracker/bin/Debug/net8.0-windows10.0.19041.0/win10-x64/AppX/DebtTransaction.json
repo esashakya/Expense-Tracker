@@ -8,7 +8,7 @@
     "debt_label": "Debt",
     "debt_note": "hello",
     "debt_duedate": "2025-01-25T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Bank",
     "cleared": false
   },
@@ -21,7 +21,7 @@
     "debt_label": "Debt",
     "debt_note": "baha",
     "debt_duedate": "0001-01-18T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
     "cleared": false
   },
@@ -34,7 +34,7 @@
     "debt_label": "Debt",
     "debt_note": "baha",
     "debt_duedate": "0001-01-18T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
     "cleared": false
   },
@@ -60,9 +60,9 @@
     "debt_label": "Debt",
     "debt_note": "baha",
     "debt_duedate": "0001-01-18T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 6,
@@ -86,9 +86,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "2025-01-25T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "ll",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 8,
@@ -99,9 +99,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "ram",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 9,
@@ -112,9 +112,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 10,
@@ -125,9 +125,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 11,
@@ -138,9 +138,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-20T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 12,
@@ -151,9 +151,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Cici",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 13,
@@ -164,7 +164,7 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "",
     "cleared": false
   },
@@ -177,9 +177,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "0001-01-01T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 15,
@@ -190,7 +190,7 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "2025-01-23T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "ram",
     "cleared": false
   },
@@ -203,8 +203,21 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "2025-01-14T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Rosie",
+    "cleared": true
+  },
+  {
+    "debtId": 17,
+    "user_id": 3,
+    "debt_amount": 200000,
+    "debt_date": "2025-01-14T00:00:00",
+    "debt_tag": "Clothes",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-14T00:00:00",
+    "debt_status": "Pending",
+    "debt_source": "Esa",
     "cleared": false
   }
 ]

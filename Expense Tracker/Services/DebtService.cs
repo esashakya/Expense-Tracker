@@ -5,15 +5,20 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Expense_Tracker.Models;
+
 namespace Expense_Tracker.Services
 {
     public class DebtService: IDebtService
     {
         private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "DebtTransaction.json");
         private readonly AuthenticationStateService _authStateService;
-        public DebtService(AuthenticationStateService authStateService)
+        private readonly IOutflowService _outflowService; //using services
+        private readonly IDashboardService _dashboardService;
+        public DebtService(AuthenticationStateService authStateService,  IDashboardService dashboardService, IOutflowService outflowService)
         {
-            _authStateService = authStateService; 
+            _authStateService = authStateService;
+            _outflowService = outflowService;
+            _dashboardService = dashboardService;
         }
         public async Task<List<Debt>> LoadDebtAsync()
         {
@@ -65,6 +70,64 @@ namespace Expense_Tracker.Services
 
                 Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
                 return new List<Debt>();
+            }
+        }
+        public async Task ChangeDebtStatusAsync(int debtId, int id)
+        {
+            try
+            {
+                var transactions = await LoadDebtAsync();
+
+                var UpdatedDebt = transactions.Where(t => t.debtId == debtId).ToList();
+                int userId = id;
+                var totalInflow = await _dashboardService.CalculateTotalInflowAsync(userId);
+
+                if (UpdatedDebt.Count != 0)
+                {
+                    foreach (var debt in UpdatedDebt)
+                    {
+                        if (totalInflow >= debt.debt_amount)
+                        {
+                            debt.debt_status = "Cleared";
+                            debt.cleared = true;
+                            totalInflow -= debt.debt_amount;
+                            var outflow = new Outflow
+                            {
+                                user_id = debt.user_id,
+                                outflow_amount = debt.debt_amount,
+                                outflow_date = debt.debt_date,
+                                outflow_note = debt.debt_note,
+                                outflow_label = debt.debt_label,
+                                outflow_tag = debt.debt_tag,
+
+                            };
+                            await _outflowService.AddOutflowAsync(outflow);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Update in Debt status failed");
+                        }
+                        
+                       
+                    }
+                    
+                    
+
+
+                    await SaveDebtAsync(transactions);
+                    
+                }
+                else
+                {
+                    Console.WriteLine($"Update in Debt status failed");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error retrieving  {debtId}: {ex.Message}");
+                
             }
         }
         public async Task AddDebtAsync(Debt debt)

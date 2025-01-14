@@ -155,7 +155,7 @@
                     {
                         var inflow = new Inflow
                             {
-                                inflowId = newTransaction.user_id,
+                                user_id = newTransaction.user_id,
                                 inflow_amount = newTransaction.amount,
                                 inflow_date = newTransaction.date,
                                 inflow_note = newTransaction.note,
@@ -169,7 +169,7 @@
                     {
                         var outflow = new Outflow
                             {
-                                outflowId = newTransaction.user_id,
+                                user_id = newTransaction.user_id,
                                 outflow_amount = newTransaction.amount,
                                 outflow_date = newTransaction.date,
                                 outflow_note = newTransaction.note,
@@ -183,7 +183,7 @@
                     {
                         var debt = new Debt
                             {
-                                debtId = newTransaction.user_id,
+                                user_id = newTransaction.user_id,
                                 debt_amount = newTransaction.amount,
                                 debt_date = newTransaction.date,
                                 debt_note = newTransaction.note,

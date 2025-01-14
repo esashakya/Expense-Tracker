@@ -1,25 +1,30 @@
 ﻿@page "/Dashboard"
-
+@using Expense_Tracker.Models
+@using Expense_Tracker.Services
+@inject AuthenticationStateService _authStateService
+@inject NavigationManager navigationManager
+@inject IDashboardService dashboardService
+@inject IDebtService debtService
 @*header *@
 
 <div class="container mt-4">
     <div class="row d-flex justify-content-around">
         <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
             <h3 class="text-center">Cash Inflows</h3>
-            <h5 class="text-center">@totalIncome</h5>
+            <h5 class="text-center">@totalInflow</h5>
         </div>
         <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
             <h3 class="text-center">Cash Outflows</h3>
-            <h5 class="text-center">@totalExpense</h5>
+            <h5 class="text-center">@totalOutflow</h5>
         </div>
         <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
             <h3 class="text-center">Debt</h3>
-            <h5 class="text-center">@totalDebt</h5>
+            <h5 class="text-center">@TotalDebt</h5>
         </div>
     </div>
     <div class="row justify-content-around">
         @{
-            decimal totalTransactions = totalIncome + totalDebt - totalExpense;
+            decimal totalTransactions =@total;
         }
         <div class="col-md-3 align-self-center top-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;">
             <h3 class="text-center">Total Transactions</h3>
@@ -27,16 +32,16 @@
         </div>
         <div class="col-md-3 align-self-center bottom-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa;color:#007c29;">
             <h3 class="text-center">Clear Debt</h3>
-            <h5 class="text-center">45000</h5>
+            <h5 class="text-center">@TotalCleared</h5>
         </div>
         <div class="col-md-3 align-self-center bottom-warning-shadow p-3 mb-5 rounded" style="background-color: #f8f9fa; color: #de3b40;">
             <h3 class="text-center">Remaining Debt</h3>
-            <h5 class="text-center">45000</h5>
+            <h5 class="text-center">@TotalPending</h5>
         </div>
     </div>
 </div>
 <div class="container mt-4">
-    <div class="row">
+    <div class="row"> 
         <div class="col-md-6">
             <PieChart  />
         </div>
@@ -154,62 +159,56 @@
      
 @code {
     protected override void OnInitialized()
-    {
-        CalculateTotals();
+    { 
+        Total();
     }
-    public class Transaction
-    {
-        public string Description { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public string Type { get; set; }
-        public string Labels { get; set; }
-        public string Notes { get; set; }
-        public string Tag { get; set; }
-    }
-    public class PendingTransaction
-    {
-        public DateTime DueDate { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public string Status { get; set; }
-        public string Labels { get; set; }
-        public string Notes { get; set; }
-        public string Tag { get; set; }
-    }
-    private Transaction newTransaction = new Transaction(); 
-    private PendingTransaction newPendingTransaction = new PendingTransaction();
-    public decimal totalIncome;
-    public decimal totalExpense;
-    public decimal totalDebt;
-    private List<Transaction> transactions = new List<Transaction>()
-    {
-        new Transaction {  Amount = 150, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery"   },
-        new Transaction { Amount = 350, Date = DateTime.Parse("2024-12-25"), Type = "Credit", Tag = "Grocery" },
-        new Transaction { Amount = 200, Date = DateTime.Parse("2024-12-25"), Type = "Debit", Tag = "Bill" }
-    };
-    private List<PendingTransaction> PendingTransactions = new List<PendingTransaction>()
-    {
-        new PendingTransaction{ DueDate = DateTime.Parse("2024-12-25"), Date= DateTime.Parse("2024-12-25"), Amount = 350, Status ="Pending", Labels = "Debt", Notes="Emergency",Tag="Hospital"},
-        new PendingTransaction{ DueDate = DateTime.Parse("2024-12-25"), Date= DateTime.Parse("2024-12-25"), Amount = 350, Status ="Pending", Labels = "Debt", Notes="Emergency",Tag="Hospital"}
+    private decimal totalInflow;
+    private decimal totalOutflow;
+    private decimal total;
+    private decimal totalDebt;
+    private decimal totalPending;
+    private decimal totalCleared;
+    private string errorMessage;
 
-    };
-   
-    private void CalculateTotals()
+    private List<Debt> DebtItems = new List<Debt>();
+    protected override async Task OnInitializedAsync()
     {
-        
-        totalIncome = transactions
-            .Where(t => t.Type == "Credit")
-            .Sum(t => t.Amount);
-
-        
-        totalExpense = transactions
-            .Where(t => t.Type == "Debit")
-            .Sum(t => t.Amount);
-
-        totalDebt = PendingTransactions
-            .Where(pt => pt.Labels == "Debt")
-            .Sum(pt => pt.Amount);
+        await Total();
+        await DebtList();
     }
+    private async Task Total()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            int id = authenticatedUser.user_id;
+            totalInflow = await dashboardService.CalculateTotalInflowAsync(id);
+            totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
+            (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
+            totalDebt = TotalDebt;
+            totalPending = TotalPending;
+            totalCleared = TotalCleared;
+            total = totalInflow + TotalDebt - totalOutflow;
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please try again later. There is some problem while calculating the total";
+        }
+    }
+    private async Task DebtList()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
+            DebtItems = await debtService.GetDebtsByUserIdAsync(id); //provide the loggedin user id as parameter
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please try again later. There is some problem while collecting debt details.";
+        }
+    }
+    
 
 }
