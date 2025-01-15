@@ -19,6 +19,36 @@
         <div class="background-blue p-3 m-4 text-center">
             <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-success">Highest Inflow: @highestDebt</h5>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-primary">Lowest Inflow: @lowestDebt</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-evenly" style=" margin: 3%;margin-left: 12%;">
+        <div class="col-md-3">
+            <label for="startDateRange">Start DueDate Range</label>
+            <input type="date" @bind="startDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="endDateRange">End DueDate Range</label>
+            <input type="date" @bind="endDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="filterTag">Filter By Tag</label>
+            <select class="form-control" @bind="filterTag">
+                <option value="defaultText" selected disabled hidden>Select Tag</option>
+                <option value="Gadgets">Gadgets</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Groceries">Groceries</option>
+            </select>
+        </div>
+        <div class="col-md-3 align-self-center">
+            <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
+        </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
         <div class="d-flex flex-row">
@@ -34,8 +64,8 @@
         </div>
     </div>
     <form class="d-flex" style="width:25%;">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" @bind="searchDebtTitle">
+        <button class="btn btn-outline-primary" type="button" @onclick="SearchByTitle">Search</button>
     </form>
 </div>
 <div class="d-flex justify-content-center align-items-center">
@@ -52,9 +82,8 @@
                     <li><a class="dropdown-item" @onclick="OldestDateDebt">Oldest Date</a></li>
                     <li><a class="dropdown-item" @onclick="LatestDueDateDebt">Latest Due Date</a></li>
                     <li><a class="dropdown-item" @onclick="OldestDueDateDebt">Oldest Due Date</a></li>
-                    <li><a class="dropdown-item" @onclick="DescDebt">Highest</a></li>
-                    <li><a class="dropdown-item" @onclick="LowestDebt">Lowest</a></li>
-                    <li><a class="dropdown-item" @onclick="TagDebt">Tag</a></li>
+                   
+                    
                 </ul>
             </div>
         </div>
@@ -78,7 +107,8 @@
                 @{
                     int ncounter = 1;
                 }
-                @foreach (var DebtItem in DebtItems)
+                @if (filterDebtItems == null){
+                foreach (var DebtItem in DebtItems)
                 {
                     <tr class="table-light">
 
@@ -94,8 +124,31 @@
                         <td class="table-light">@DebtItem.debt_source</td>
                         <td class="table-light"><div class="@(DebtItem.debt_status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@DebtItem.debt_status</div></td>
                         <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(DebtItem)">Clear</button></td>
-                    </tr>
-                    ncounter++;
+                        </tr>
+                        ncounter++;
+                    }
+                }
+                else
+                {
+                    foreach (var filterDebtItem in filterDebtItems)
+                    {
+                        <tr class="table-light">
+
+                            <th scope="row" class="table-light">@ncounter</th>
+
+                            <td class="table-light">@filterDebtItem.debt_title</td>
+                            <td class="table-light">@filterDebtItem.debt_amount.ToString()</td>
+                            <td class="table-light">@filterDebtItem.debt_date.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light">@filterDebtItem.debt_duedate.ToString("yyyy-MM-dd")</td>
+                            <td class="table-light text-primary">@filterDebtItem.debt_tag</td>
+                            <td class="table-light text-warning">@filterDebtItem.debt_label</td>
+                            <td class="table-light">@filterDebtItem.debt_note</td>
+                            <td class="table-light">@filterDebtItem.debt_source</td>
+                            <td class="table-light"><div class="@(filterDebtItem.debt_status == "Pending"?"btn btn-danger": "btn btn-success")" style="border-radius: 15px; margin:0;color:white;">@filterDebtItem.debt_status</div></td>
+                            <td class="table-light"><button class="btn btn-primary" style="border-radius: 15px; margin:0;color:white;" @onclick="() => ClearDebt(filterDebtItem)">Clear</button></td>
+                        </tr>
+                        ncounter++;
+                    }
                 }
             </tbody>
         </table>
@@ -104,7 +157,10 @@
 </div>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        filterDebtItems = null;
+    }
     private void OpenTransaction()
     {
         navigationManager.NavigateTo("/AddTransaction");
@@ -113,12 +169,43 @@
     private decimal totalOutflow;
     private decimal total;
     private string errorMessage;
+    private string searchDebtTitle;
+    private List<Debt> filterDebtItems = new List<Debt>();
 
     private List<Debt> DebtItems = new List<Debt>();
     protected override async Task OnInitializedAsync()
     {
         await Total();
         await DebtList();
+    }
+    private DateTime? startDateRange;
+    private DateTime? endDateRange;
+    private string? filterTag;
+    private decimal highestDebt;
+    private decimal lowestDebt;
+    private List<Debt> debtAmt = new List<Debt>();
+    private async Task FilterByDate()
+    {
+        if (startDateRange.HasValue && endDateRange.HasValue && filterTag!=null)
+        {
+            DebtItems = DebtItems
+                .Where(t => t.debt_duedate >= startDateRange.Value && t.debt_duedate <= endDateRange.Value && t.debt_tag == filterTag) //provide the data
+                .ToList();
+
+        }
+        else if (startDateRange.HasValue && endDateRange.HasValue)
+        {
+            DebtItems = DebtItems
+                .Where(t => t.debt_duedate >= startDateRange.Value && t.debt_duedate <= endDateRange.Value ) //provide the data
+                .ToList();
+        }
+        else
+        {
+            errorMessage = "All the fields must be filled.";
+        }
+
+
+        StateHasChanged();
     }
     private async Task Total()
     {
@@ -130,6 +217,9 @@
             totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
             (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
             total = totalInflow + TotalDebt - totalOutflow;
+            debtAmt = await debtService.GetDebtsByUserIdAsync(id);
+            highestDebt = debtAmt.Max(i => i.debt_amount);
+            lowestDebt = debtAmt.Min(i => i.debt_amount);
 
         }
         catch (Exception ex)
@@ -150,16 +240,17 @@
             errorMessage = "Please try again later. There is some problem while collecting debt details.";
         }
     }
-    private async Task ClearDebt(Debt DebtItem)
+    private async Task ClearDebt(Debt data)
     {
-        if (DebtItem.debt_status == "Pending")
+        if (data.debt_status == "Pending")
         {
             var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
             int id = authenticatedUser.user_id;
-            DebtItem.debt_status = "Cleared";
-            await debtService.ChangeDebtStatusAsync(DebtItem.debtId, id);
+            data.debt_status = "Cleared";
+            await debtService.ChangeDebtStatusAsync(data.debtId, id);
             await Total();
             await DebtList();
+
             StateHasChanged();
         }
         else
@@ -167,33 +258,80 @@
             errorMessage = "Already cleared";
         }
     }
+    private async Task SearchByTitle()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
+            filterDebtItems = await debtService.GetDebtsByTitleAsync(searchDebtTitle, id);
+
+
+            if (filterDebtItems == null)
+            {
+                errorMessage = "No matched title found.";
+
+                StateHasChanged();
+            }
+            else
+            {
+                errorMessage = null; 
+            }
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while retrieving the debts";
+            Console.WriteLine(errorMessage);
+        }
+    }
     private async Task LatestDateDebt()
     {
-        DebtItems = DebtItems.OrderByDescending(d => d.debt_date).ToList();
+        @if (filterDebtItems == null)
+        {
+            DebtItems = DebtItems.OrderByDescending(d => d.debt_date).ToList();
+        }
+        else
+        {
+            filterDebtItems = filterDebtItems.OrderByDescending(d => d.debt_date).ToList();
+        }
     }
     private async Task OldestDateDebt()
     {
-        DebtItems = DebtItems.OrderBy(d => d.debt_date).ToList();
+        @if (filterDebtItems == null)
+        {
+            DebtItems = DebtItems.OrderBy(d => d.debt_date).ToList();
+        }
+        else
+        {
+            filterDebtItems = filterDebtItems.OrderBy(d => d.debt_date).ToList();
+        }
     }
     private async Task LatestDueDateDebt()
     {
-        DebtItems = DebtItems.OrderByDescending(d => d.debt_duedate).ToList();
+        @if (filterDebtItems == null)
+        {
+            DebtItems = DebtItems.OrderByDescending(d => d.debt_duedate).ToList();
+        }
+        else
+        {
+            filterDebtItems = filterDebtItems.OrderByDescending(d => d.debt_duedate).ToList();
+        }
     }
     private async Task OldestDueDateDebt()
     {
-        DebtItems = DebtItems.OrderBy(d => d.debt_duedate).ToList();
+        @if (filterDebtItems == null)
+        {
+            DebtItems = DebtItems.OrderBy(d => d.debt_duedate).ToList();
+        }
+        else
+        {
+            filterDebtItems = filterDebtItems.OrderBy(d => d.debt_duedate).ToList();
+        }
     }
-    private async Task DescDebt()
-    {
-        DebtItems = DebtItems.OrderByDescending(d => d.debt_amount).ToList();
-    }
-    private async Task LowestDebt()
-    {
-        DebtItems = DebtItems.OrderBy(d => d.debt_amount).ToList();
-    }
-    private async Task TagDebt()
-    {
-        DebtItems = DebtItems.OrderBy(d => d.debt_tag).ToList();
-    }
+   
+    
+    
+    
 }
  

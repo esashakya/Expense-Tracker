@@ -328,5 +328,85 @@
     "outflow_title": "moneyyyyy",
     "outflow_label": "Outflow",
     "outflow_note": "moneyy"
+  },
+  {
+    "outflowId": 34,
+    "user_id": 4,
+    "outflow_amount": 250,
+    "outflow_date": "2025-01-15T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": "test",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 35,
+    "user_id": 4,
+    "outflow_amount": 50,
+    "outflow_date": "2025-01-15T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": "yayy",
+    "outflow_label": "Outflow",
+    "outflow_note": "debtt"
+  },
+  {
+    "outflowId": 36,
+    "user_id": 4,
+    "outflow_amount": 1500,
+    "outflow_date": "2025-01-15T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": "huu",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 37,
+    "user_id": 4,
+    "outflow_amount": 25,
+    "outflow_date": "2025-01-15T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": "yay",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 38,
+    "user_id": 4,
+    "outflow_amount": 10,
+    "outflow_date": "2025-01-15T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": "oh",
+    "outflow_label": "Outflow",
+    "outflow_note": "kooo"
+  },
+  {
+    "outflowId": 39,
+    "user_id": 4,
+    "outflow_amount": 50000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Gadgets",
+    "outflow_title": "Friend",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 40,
+    "user_id": 4,
+    "outflow_amount": 250,
+    "outflow_date": "2025-01-16T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": "yayy",
+    "outflow_label": "Outflow",
+    "outflow_note": null
+  },
+  {
+    "outflowId": 41,
+    "user_id": 4,
+    "outflow_amount": 500,
+    "outflow_date": "2025-01-16T00:00:00",
+    "outflow_tag": "hi",
+    "outflow_title": "o",
+    "outflow_label": "Outflow",
+    "outflow_note": null
   }
 ]

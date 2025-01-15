@@ -1,4 +1,5 @@
 ﻿@page "/Dashboard"
+
 @using Expense_Tracker.Models
 @using Expense_Tracker.Services
 @inject AuthenticationStateService _authStateService
@@ -41,12 +42,27 @@
         </div>
     </div>
 </div>
+@*filtering the records*@
+<div class="row justify-content-evenly" style=" margin: 3%;margin-left: 12%;">
+    <div class="col-md-3">
+        <label for="startDateRange">Start Date Range</label>
+        <input type="date" id="startDate" @bind="startDateRange" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label for="endDateRange">End Date Range</label>
+        <input type="date" id="endDate" @bind="endDateRange" class="form-control" />
+    </div>
+    <div class="col-md-3 align-self-center">
+        <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Date Filter</button>
+    </div>
+</div>
+
 <div class="container mt-4">
     <div class="row"> 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <PieChart  />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="container m-4 p-3 mt-3 shadow rounded">
                 <div class="d-flex flex-row justify-content-around">
                     <div><h5 class="pt-3 fw-bold">Top 5 Transactions</h5></div>
@@ -57,6 +73,7 @@
                             Sort By
                         </button>
                         @{
+                            //to pass the string parameter
                             string date = "Date";
                             string transactionInflow = "Inflow";
                             string transactionOutflow = "Outflow";
@@ -72,7 +89,8 @@
                         </ul>
                     </div>
                 </div>
-                <table class="table">
+                
+                <table class="table ">
                   <thead>
                      <tr class="table-primary">
                       <th scope="col">Sn.no</th>
@@ -89,7 +107,7 @@
                             int counter = 1;
                             
                         }
-                        @foreach (var transaction in totalTransaction.Take(5))
+                        @foreach (var transaction in totalTransaction.Take(5)) //only 5 needs to be displayed
                         {
                             <tr class="table-light">
 
@@ -106,7 +124,7 @@
                         }
                 </tbody>
                 </table>
-                 
+                
             </div>
          </div>
                 
@@ -172,7 +190,7 @@
             </div>
      
 @code {
-    protected override void OnInitialized()
+    protected override void OnInitialized()//this method runs every time the page reload
     { 
         Total();
     }
@@ -183,6 +201,9 @@
     private decimal totalPending;
     private decimal totalCleared;
     private string errorMessage;
+    private DateTime? startDateRange; //date can be null as well
+    private DateTime? endDateRange;
+
 
     private List<Debt> DebtItems = new List<Debt>();
     private List<Debt> debts = new List<Debt>();
@@ -226,9 +247,43 @@
         }
         StateHasChanged();
     }
+    private async Task FilterByDate()
+    {
+        //sorting according to start date, end date and tag
+        if (startDateRange.HasValue && endDateRange.HasValue)
+        {
+            totalTransaction = totalTransaction
+                .Where(t => t.transaction_date >= startDateRange.Value && t.transaction_date <= endDateRange.Value) //provide the data
+                .ToList();
+            debts = debts
+                .Where(t => t.debt_date >= startDateRange.Value && t.debt_date <= endDateRange.Value)
+                .ToList();
+        }
+        else if (startDateRange.HasValue)
+        {
+            totalTransaction = totalTransaction
+                .Where(t => t.transaction_date >= startDateRange.Value)
+                .ToList();
+            debts = debts
+                .Where(t => t.debt_date >= startDateRange.Value)
+                .ToList();
+        }
+        else if (endDateRange.HasValue)
+        {
+            totalTransaction = totalTransaction
+                .Where(t => t.transaction_date <= endDateRange.Value)
+                .ToList();
+            debts = debts
+                .Where(t => t.debt_date <= endDateRange.Value)
+                .ToList();
+        }
+
+        StateHasChanged();
+    }
 
     private async Task Total()
     {
+        //calculating total amount by using method from dashboard services
         try
         {
             var authenticatedUser = _authStateService.GetAuthenticatedUser();
@@ -240,7 +295,7 @@
             totalPending = TotalPending;
             totalCleared = TotalCleared;
             total = totalInflow + totalPending - totalOutflow;
-
+            
         }
         catch (Exception ex)
         {
@@ -265,15 +320,15 @@
     }
     private async Task DescPending()
     {
-        debts = debts.OrderByDescending(d => d.debt_amount).ToList();
+        debts = debts.OrderByDescending(d => d.debt_amount).ToList(); //list the debts according to descending order 
     }
     private async Task LowestPending()
     {
-        debts = debts.OrderBy(d => d.debt_amount).ToList();
+        debts = debts.OrderBy(d => d.debt_amount).ToList(); //list the debts according to ascending order
     }
     private async Task DatePending()
     {
-        debts = debts.OrderByDescending(d => d.debt_date).ToList();
+        debts = debts.OrderByDescending(d => d.debt_date).ToList(); //sorting debts according to date
     }
     
 

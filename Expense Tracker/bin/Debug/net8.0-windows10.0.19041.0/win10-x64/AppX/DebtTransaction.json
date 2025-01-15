@@ -275,9 +275,9 @@
     "debt_label": "Debt",
     "debt_note": null,
     "debt_duedate": "2025-01-14T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Deepa",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 21,
@@ -305,6 +305,62 @@
     "debt_duedate": "2025-01-14T00:00:00",
     "debt_status": "Cleared",
     "debt_source": "dhewaa",
+    "cleared": true
+  },
+  {
+    "debtId": 23,
+    "user_id": 4,
+    "debt_amount": 50,
+    "debt_date": "2025-01-15T00:00:00",
+    "debt_tag": "Gadgets",
+    "debt_title": "yayy",
+    "debt_label": "Debt",
+    "debt_note": "debtt",
+    "debt_duedate": "2025-01-15T00:00:00",
+    "debt_status": "Cleared",
+    "debt_source": "ram",
+    "cleared": true
+  },
+  {
+    "debtId": 24,
+    "user_id": 4,
+    "debt_amount": 1500,
+    "debt_date": "2025-01-15T00:00:00",
+    "debt_tag": "Groceries",
+    "debt_title": "huu",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-15T00:00:00",
+    "debt_status": "Cleared",
+    "debt_source": "ram",
+    "cleared": true
+  },
+  {
+    "debtId": 25,
+    "user_id": 4,
+    "debt_amount": 25,
+    "debt_date": "2025-01-15T00:00:00",
+    "debt_tag": "Gadgets",
+    "debt_title": "yay",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-15T00:00:00",
+    "debt_status": "Cleared",
+    "debt_source": "Hari",
+    "cleared": true
+  },
+  {
+    "debtId": 26,
+    "user_id": 4,
+    "debt_amount": 10,
+    "debt_date": "2025-01-15T00:00:00",
+    "debt_tag": "Gadgets",
+    "debt_title": "oh",
+    "debt_label": "Debt",
+    "debt_note": "kooo",
+    "debt_duedate": "2025-01-15T00:00:00",
+    "debt_status": "Cleared",
+    "debt_source": "ol",
     "cleared": true
   }
 ]

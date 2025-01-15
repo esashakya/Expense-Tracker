@@ -44,6 +44,21 @@ namespace Expense_Tracker.Services
                 throw; 
             }
         }
+        public async Task<List<Inflow>> GetInflowsByTitleAsync(string title, int userId)
+        {
+            try
+            {
+                var transactions = await LoadInflowAsync();
+
+                return (transactions ?? new List<Inflow>()).Where(t => t.user_id == userId && t.inflow_title.ToLower() == title.ToLower()).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                return new List<Inflow>();
+            }
+        }
 
         public async Task<List<Inflow>> GetInflowsByUserIdAsync(int userId)
         {

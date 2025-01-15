@@ -9,10 +9,10 @@ namespace Expense_Tracker.Services
 {
     public class OutflowService : IOutflowService
     {
-        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "OutflowTransaction.json");
-        private readonly AuthenticationStateService _authStateService;
+        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "OutflowTransaction.json"); //OutflowTransaction.json will be used to store data in transactionFilePath 
+        private readonly AuthenticationStateService _authStateService; //injecting the services
         private readonly IDashboardService dashboardService;
-        public OutflowService(AuthenticationStateService authStateService, IDashboardService dashboardService)
+        public OutflowService(AuthenticationStateService authStateService, IDashboardService dashboardService) //constructor to initialize the services
         {
             _authStateService = authStateService;
             this.dashboardService = dashboardService;
@@ -21,7 +21,7 @@ namespace Expense_Tracker.Services
         {
             try
             {
-                if (!File.Exists(transactionFilePath))
+                if (!File.Exists(transactionFilePath)) //checking for file
                 {
                     return new List<Outflow>();
                 }
@@ -45,7 +45,7 @@ namespace Expense_Tracker.Services
                 return new List<Outflow>();
             }
         }
-        private int GetLoggedInUserId()
+        private int GetLoggedInUserId()//method to get logged in user
         {
             var loggedUser = _authStateService.GetAuthenticatedUser(); //get user details
             if (loggedUser == null)
@@ -54,13 +54,28 @@ namespace Expense_Tracker.Services
             }
             return loggedUser.user_id; // user id is returned
         }
-        public async Task AddOutflowAsync(Outflow outflow)
+        public async Task<List<Outflow>> GetOutflowsByTitleAsync(string title, int userId) //method to filter outflows according to the title
+        {
+            try
+            {
+                var transactions = await LoadOutflowAsync();//call the method
+
+                return (transactions ?? new List<Outflow>()).Where(t => t.user_id == userId && t.outflow_title.ToLower() == title.ToLower()).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                return new List<Outflow>();
+            }
+        }
+        public async Task AddOutflowAsync(Outflow outflow) //to add transaction for outflow label
         {
 
             try
             {
                 outflow.user_id = GetLoggedInUserId();
-                int id = GetLoggedInUserId();
+                int id = GetLoggedInUserId();//id is collected in order to display specified user id
                 var transactions = await LoadOutflowAsync();
 
                 decimal totalAmount = await dashboardService.CalculateTotalInflowAsync(id); //checking if there is sufficient inflow amount to make transaction
@@ -98,7 +113,7 @@ namespace Expense_Tracker.Services
             }
         }
 
-        public async Task SaveOutflowAsync(List<Outflow> outflowDetails)
+        public async Task SaveOutflowAsync(List<Outflow> outflowDetails) //to save the outflow details in json after adding to transaction
         {
             try
             {

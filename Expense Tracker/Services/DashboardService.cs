@@ -54,7 +54,24 @@ namespace Expense_Tracker.Services
                 return 0;
             }
         }
-
+        public async Task<decimal> UpdateTotalInflowAsync(int id, decimal transactionAmt)
+        {
+            int userId = id;
+            decimal debtAmt = transactionAmt;
+            try
+            {
+                var totalInflow = await CalculateTotalInflowAsync(userId);
+                totalInflow -= debtAmt;
+                return totalInflow;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                return 0;
+            }
+           
+            
+            }
         public async Task<decimal> CalculateTotalOutflowAsync(int id)
         {
             try
@@ -138,8 +155,9 @@ namespace Expense_Tracker.Services
                 return (0, 0, 0);
             }
         }
-        public async Task<List<Transaction>> ListTransactions(int id)
+        public async Task<List<Transaction>> ListTransactions(int id)//listing all the transactions
         {
+            //collecting all the data from different transaction and returning the list where all types of transactions is stored.
             var DebtJson = await File.ReadAllTextAsync(DebtTransactionFilePath);
             var debts = JsonSerializer.Deserialize<List<Debt>>(DebtJson) ?? new List<Debt>();
             var InflowJson = await File.ReadAllTextAsync(InflowTransactionFilePath);

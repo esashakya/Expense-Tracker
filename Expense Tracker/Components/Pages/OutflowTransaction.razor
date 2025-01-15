@@ -12,6 +12,37 @@
         <div class="background-blue p-3 m-4 text-center">
             <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-success">Highest Inflow: @highestOutflow</h5>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-primary">Lowest Inflow: @lowestOutflow</h5>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-evenly" style=" margin: 3%;margin-left: 12%;">
+        <div class="col-md-3">
+            <label for="startDateRange">Start Date Range</label>
+            <input type="date" @bind="startDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="endDateRange">End Date Range</label>
+            <input type="date" @bind="endDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="filterTag">Filter By Tag</label>
+            <select class="form-control" @bind="filterTag">
+                <option value="defaultText" selected disabled hidden>Select Tag</option>
+                <option value="Gadgets">Gadgets</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Groceries">Groceries</option>
+            </select>
+        </div>
+        <div class="col-md-3 align-self-center">
+            <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
+        </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
         <div class="d-flex flex-row">
@@ -27,8 +58,8 @@
         </div>
     </div>
     <form class="d-flex" style="width:25%;">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" @bind= "searchOutflowTitle">
+        <button class="btn btn-outline-primary" type="button" @onclick="SearchByTitle">Search</button>
     </form>
 </div>
 <div class="d-flex justify-content-center align-items-center">
@@ -44,9 +75,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" @onclick="LatestDateOutflow">Latest Date</a></li>
                     <li><a class="dropdown-item" @onclick="OldestDateOutflow">Oldest Date</a></li>
-                    <li><a class="dropdown-item" @onclick="DescOutflow">Highest</a></li>
-                    <li><a class="dropdown-item" @onclick="LowestOutflow">Lowest</a></li>
-                    <li><a class="dropdown-item" @onclick="TagOutflow">Tag</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -66,7 +95,8 @@
                 @{
                     int counter = 1;
                 }
-                @foreach (var OutflowItem in OutflowItems)
+                @if (filterOutflowItems == null){
+                foreach (var OutflowItem in OutflowItems)
                 {
                     <tr class="table-light">
 
@@ -78,8 +108,28 @@
                         <td class="table-light text-primary">@OutflowItem.outflow_tag</td>
                         <td class="table-light text-warning">@OutflowItem.outflow_label</td>
                         <td class="table-light">@OutflowItem.outflow_note</td>
-                    </tr>
-                    counter++;
+                        </tr>
+                        counter++;
+                    }
+                }
+                else
+                {
+                    foreach (var filterOutflowItem in filterOutflowItems)
+                    {
+                        <tr class="table-light">
+
+                            <th scope="row" class="table-light">@counter</th>
+
+                            <td class="table-light">@filterOutflowItem.outflow_title</td>
+                            <td class="table-light">@filterOutflowItem.outflow_amount.ToString()</td>
+                            <td class="table-light">@filterOutflowItem.outflow_date.ToString("yyyy-MM-dd")</td>
+                            
+                            <td class="table-light text-primary">@filterOutflowItem.outflow_tag</td>
+                            <td class="table-light text-warning">@filterOutflowItem.outflow_label</td>
+                            <td class="table-light">@filterOutflowItem.outflow_note</td>
+                         </tr>
+                        counter++;
+                    }
                 }
             </tbody>
         </table>
@@ -88,21 +138,59 @@
 </div>
 
 @code {
-   
+    protected override void OnInitialized()
+    {
+        filterOutflowItems = null;
+    }
+
     private void OpenTransaction()
     {
         navigationManager.NavigateTo("/AddTransaction");
     }
-    
+
     private decimal totalInflow;
     private decimal totalOutflow;
     private decimal total;
     private string errorMessage;
+    private string searchOutflowTitle;
+    private decimal highestOutflow;
+    private decimal lowestOutflow;
+    private List<Outflow> filterOutflowItems = new List<Outflow>();
     private List<Outflow> OutflowItems = new List<Outflow>();
+    private List<Outflow> outflowAmt = new List<Outflow>();
     protected override async Task OnInitializedAsync()
     {
         await Total();
         await OutflowList();
+
+
+
+    }
+    private DateTime? startDateRange;
+    private DateTime? endDateRange;
+    private string filterTag;
+    private async Task FilterByDate()
+    {
+        if (startDateRange.HasValue && endDateRange.HasValue && filterTag != null)
+        {
+            OutflowItems = OutflowItems
+                .Where(t => t.outflow_date >= startDateRange.Value && t.outflow_date <= endDateRange.Value && t.outflow_tag == filterTag) //provide the data
+                .ToList();
+
+        }
+        else if (startDateRange.HasValue && endDateRange.HasValue)
+        {
+            OutflowItems = OutflowItems
+                .Where(t => t.outflow_date >= startDateRange.Value && t.outflow_date <= endDateRange.Value) //provide the data
+                .ToList();
+        }
+        else
+        {
+            errorMessage = "All the fields must be filled.";
+        }
+
+
+        StateHasChanged();
     }
     private async Task Total()
     {
@@ -114,6 +202,9 @@
             totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
             (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
             total = totalInflow + TotalDebt - totalOutflow;
+            outflowAmt = await outflowService.GetOutflowsByUserIdAsync(id);
+            highestOutflow = outflowAmt.Max(i => i.outflow_amount);
+            lowestOutflow = outflowAmt.Min(i => i.outflow_amount);
 
         }
         catch (Exception ex)
@@ -134,24 +225,54 @@
             errorMessage = "Please refresh the page.";
         }
     }
-    private async Task DescOutflow()
+    private async Task SearchByTitle()
     {
-        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_amount).ToList();
-    }
-    private async Task LowestOutflow()
-    {
-        OutflowItems = OutflowItems.OrderBy(d => d.outflow_amount).ToList();
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
+            filterOutflowItems = await outflowService.GetOutflowsByTitleAsync(searchOutflowTitle, id);
+
+
+            if (filterOutflowItems == null)
+            {
+                errorMessage = "No matched title found.";
+
+                StateHasChanged();
+            }
+            else
+            {
+                errorMessage = null;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while retrieving the debts";
+            Console.WriteLine(errorMessage);
+        }
     }
     private async Task LatestDateOutflow()
     {
-        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_date).ToList();
+        @if (filterOutflowItems == null)
+        {
+            OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_date).ToList();
+        }
+        else
+        {
+            filterOutflowItems = filterOutflowItems.OrderByDescending(d => d.outflow_date).ToList();
+        }
     }
     private async Task OldestDateOutflow()
     {
-        OutflowItems = OutflowItems.OrderBy(d => d.outflow_date).ToList();
+        @if (filterOutflowItems == null)
+        {
+            OutflowItems = OutflowItems.OrderBy(d => d.outflow_date).ToList();
+        }
+        else
+        {
+            filterOutflowItems = filterOutflowItems.OrderBy(d => d.outflow_date).ToList();
+        }
     }
-    private async Task TagOutflow()
-    {
-        OutflowItems = OutflowItems.OrderByDescending(d => d.outflow_tag).ToList();
-    }
+  
 }

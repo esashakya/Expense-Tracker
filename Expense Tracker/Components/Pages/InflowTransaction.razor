@@ -11,6 +11,36 @@
         <div class="background-blue p-3 m-4 text-center">
             <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-success">Highest Inflow: @highestInflow</h5>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-primary">Lowest Inflow: @lowestInflow</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-evenly" style=" margin: 3%;margin-left: 12%;">
+        <div class="col-md-3">
+            <label for="startDateRange">Start Date Range</label>
+            <input type="date" @bind="startDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="endDateRange">End Date Range</label>
+            <input type="date" @bind="endDateRange" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="filterTag">Filter By Tag</label>
+            <select class="form-control" @bind="filterTag">
+                 <option value="defaultText" selected disabled hidden>Select Tag</option>
+                 <option value="Gadgets">Gadgets</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Clothes">Groceries</option>
+           </select>
+        </div>
+        <div class="col-md-3 align-self-center">
+            <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
+        </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
         <div class="d-flex flex-row">
@@ -26,8 +56,8 @@
         </div>
     </div>
         <form class="d-flex" style="width:25%;">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" @bind="searchInflowTitle">
+        <button class="btn btn-outline-primary" type="button" @onclick="SearchByTitle">Search</button>
         </form>
     </div>
     <div class="d-flex justify-content-center align-items-center">
@@ -43,9 +73,7 @@
                         <ul class="dropdown-menu" >
                             <li><a class="dropdown-item" @onclick="LatestDateInflow">Latest Date</a></li>
                             <li><a class="dropdown-item" @onclick="OldestDateInflow">Oldest Date</a></li>
-                            <li><a class="dropdown-item" @onclick="DescInflow">Highest</a></li>
-                            <li><a class="dropdown-item" @onclick="LowestInflow">Lowest</a></li>
-                             <li><a class="dropdown-item" @onclick="TagInflow">Tag</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -65,22 +93,44 @@
                         @{
                             int counter = 1;
                         }
-                        @foreach (var InflowItem in InflowItems)
-                        {
-                            <tr class="table-light">
+                        @if (filterInflowItems == null){
+                            foreach (var InflowItem in InflowItems)
+                            {
+                                <tr class="table-light">
 
-                            <th scope="row" class="table-light">@counter</th>
+                                <th scope="row" class="table-light">@counter</th>
 
-                                <td class="table-light">@InflowItem.inflow_title</td>
-                                <td class="table-light">@InflowItem.inflow_amount.ToString()</td>
-                                <td class="table-light">@InflowItem.inflow_date.ToString("yyyy-MM-dd")</td>
-                                <td class="table-light text-primary">@InflowItem.inflow_tag</td>
-                                <td class="table-light text-success">@InflowItem.inflow_label</td>
-                                <td class="table-light">@InflowItem.inflow_note</td>
-                        </tr>
-                        counter++;
+                                    <td class="table-light">@InflowItem.inflow_title</td>
+                                    <td class="table-light">@InflowItem.inflow_amount.ToString()</td>
+                                    <td class="table-light">@InflowItem.inflow_date.ToString("yyyy-MM-dd")</td>
+                                    <td class="table-light text-primary">@InflowItem.inflow_tag</td>
+                                    <td class="table-light text-success">@InflowItem.inflow_label</td>
+                                    <td class="table-light">@InflowItem.inflow_note</td>
+                                </tr>
+                                counter++;
+                            }
                         }
-                </tbody>
+                        else
+                        {
+                            foreach (var filterInflowItem in filterInflowItems)
+                            {
+                                <tr class="table-light">
+
+                                    <th scope="row" class="table-light">@counter</th>
+
+                                    <td class="table-light">@filterInflowItem.inflow_title</td>
+                                    <td class="table-light">@filterInflowItem.inflow_amount.ToString()</td>
+                                    <td class="table-light">@filterInflowItem.inflow_date.ToString("yyyy-MM-dd")</td>
+                                    <td class="table-light text-primary">@filterInflowItem.inflow_tag</td>
+                                    <td class="table-light text-success">@filterInflowItem.inflow_label</td>
+                                    <td class="table-light">@filterInflowItem.inflow_note</td>
+                                </tr>
+                                counter++;
+                            }
+
+                    
+                }
+            </tbody>
                 </table>
                  
             </div>
@@ -88,20 +138,84 @@
 
 
 @code {
+    protected override void OnInitialized()
+    {
+        filterInflowItems = null; //initializing the filteritems to be null
+    }
 
     private void OpenTransaction()
     {
-        navigationManager.NavigateTo("/AddTransaction");
+        navigationManager.NavigateTo("/AddTransaction"); //this method is called to open add transaction page
     }
     private decimal totalInflow;
     private decimal totalOutflow;
+    private decimal highestInflow;
+    private decimal lowestInflow;
     private decimal total;
     private string errorMessage;
+    private string searchInflowTitle;
+    private List<Inflow> filterInflowItems = new List<Inflow>();
     private List<Inflow> InflowItems = new List<Inflow>();
+    private List<Inflow> inflowAmt = new List<Inflow>();
     protected override async Task OnInitializedAsync()
     {
         await Total();
         await InflowList();
+
+    }
+    private DateTime? startDateRange;
+    private DateTime? endDateRange;
+    private string filterTag;
+    private async Task FilterByDate()
+    {
+        //filter according to the date range and tag
+        if (startDateRange.HasValue && endDateRange.HasValue && filterTag !=null)
+        {
+            InflowItems = InflowItems
+                .Where(t => t.inflow_date >= startDateRange.Value && t.inflow_date <= endDateRange.Value && t.inflow_tag == filterTag) //provide the data
+                .ToList();
+
+        }
+        else if (startDateRange.HasValue && endDateRange.HasValue)
+        {
+            InflowItems = InflowItems
+                .Where(t => t.inflow_date >= startDateRange.Value && t.inflow_date <= endDateRange.Value) //provide the data
+                .ToList();
+        }
+        else
+        {
+            errorMessage = "All the fields must be filled.";
+        }
+
+
+        StateHasChanged();
+    }
+    private async Task SearchByTitle()
+    {
+        try
+        {
+            var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
+            int id = authenticatedUser.user_id;
+            filterInflowItems = await inflowService.GetInflowsByTitleAsync(searchInflowTitle, id);
+
+
+            if (filterInflowItems == null)
+            {
+                errorMessage = "No matched title found.";
+
+
+            }
+            else
+            {
+                errorMessage = null;
+            }
+            StateHasChanged();
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Please refresh the page.";
+        }
     }
     private async Task Total()
     {
@@ -113,6 +227,9 @@
             totalOutflow = await dashboardService.CalculateTotalOutflowAsync(id);
             (decimal TotalDebt, decimal TotalPending, decimal TotalCleared) = await dashboardService.CalculateTotalDebtAsync(id);
             total = totalInflow + TotalDebt - totalOutflow;
+            inflowAmt = await inflowService.GetInflowsByUserIdAsync(id);
+            highestInflow = inflowAmt.Max(i => i.inflow_amount);
+            lowestInflow = inflowAmt.Min(i => i.inflow_amount);
 
         }
         catch (Exception ex)
@@ -133,24 +250,27 @@
             errorMessage = "Please refresh the page.";
         }
     }
-    private async Task DescInflow()
-    {
-        InflowItems = InflowItems.OrderByDescending(d => d.inflow_amount).ToList();
-    }
-    private async Task LowestInflow()
-    {
-        InflowItems = InflowItems.OrderBy(d => d.inflow_amount).ToList();
-    }
     private async Task LatestDateInflow()
     {
-        InflowItems = InflowItems.OrderByDescending(d => d.inflow_date).ToList();
+        if (filterInflowItems == null)
+        {
+            InflowItems = InflowItems.OrderByDescending(d => d.inflow_date).ToList();//if filter is not applied
+        }
+        else
+        {
+            filterInflowItems = filterInflowItems.OrderByDescending(d => d.inflow_date).ToList(); //if filter is applied
+        }
     }
     private async Task OldestDateInflow()
     {
-        InflowItems = InflowItems.OrderBy(d => d.inflow_date).ToList();
+        if (filterInflowItems == null)
+        {
+            InflowItems = InflowItems.OrderBy(d => d.inflow_date).ToList();
+        }
+        else
+        {
+            filterInflowItems = filterInflowItems.OrderBy(d => d.inflow_date).ToList();
+        }
     }
-    private async Task TagInflow()
-    {
-        InflowItems = InflowItems.OrderByDescending(d => d.inflow_tag).ToList();
-    }
+    
 }

@@ -10,9 +10,10 @@ namespace Expense_Tracker.Services
 {
     public class DebtService: IDebtService
     {
-        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "DebtTransaction.json");
+        private readonly string transactionFilePath = Path.Combine(AppContext.BaseDirectory, "DebtTransaction.json");//DebtTransaction.json will be used to store the details of debt
         private readonly AuthenticationStateService _authStateService;
         private readonly IOutflowService _outflowService; //using services
+       
         private readonly IDashboardService _dashboardService;
         public DebtService(AuthenticationStateService authStateService,  IDashboardService dashboardService, IOutflowService outflowService)
         {
@@ -20,7 +21,7 @@ namespace Expense_Tracker.Services
             _outflowService = outflowService;
             _dashboardService = dashboardService;
         }
-        public async Task<List<Debt>> LoadDebtAsync()
+        public async Task<List<Debt>> LoadDebtAsync()//loading debt details
         {
             try
             {
@@ -57,7 +58,7 @@ namespace Expense_Tracker.Services
             }
             return loggedUser.user_id; // user id is returned
         }
-        public async Task<List<Debt>> GetDebtsByUserIdAsync(int userId)
+        public async Task<List<Debt>> GetDebtsByUserIdAsync(int userId)//loading debt details according to the specified id
         {
             try
             {
@@ -72,15 +73,30 @@ namespace Expense_Tracker.Services
                 return new List<Debt>();
             }
         }
-        public async Task ChangeDebtStatusAsync(int debtId, int id)
+        public async Task<List<Debt>> GetDebtsByTitleAsync(string title,int userId)//filter debts according to title
         {
             try
             {
                 var transactions = await LoadDebtAsync();
 
-                var UpdatedDebt = transactions.Where(t => t.debtId == debtId).ToList();
+                return (transactions ?? new List<Debt>()).Where(t => t.user_id == userId && t.debt_title.ToLower() == title.ToLower()).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                return new List<Debt>();
+            }
+        }
+        public async Task ChangeDebtStatusAsync(int debtId, int id) //method to change the debt status after clearing the debts
+        {
+            try
+            {
+                var transactions = await LoadDebtAsync();
+
+                var UpdatedDebt = transactions.Where(t => t.debtId == debtId).ToList(); //check the specific debt id that needs to be cleared
                 int userId = id;
-                var totalInflow = await _dashboardService.CalculateTotalInflowAsync(userId);
+                var totalInflow = await _dashboardService.CalculateTotalInflowAsync(userId); //using the method from dashboard service to use its method for calculating the total inflow
 
                 if (UpdatedDebt.Count != 0)
                 {
@@ -91,7 +107,7 @@ namespace Expense_Tracker.Services
                             debt.debt_status = "Cleared";
                             debt.cleared = true;
                             totalInflow -= debt.debt_amount;
-                            var outflow = new Outflow
+                            var outflow = new Outflow //after clearing debts,outflow details will be changed
                             {
                                 user_id = debt.user_id,
                                 outflow_title = debt.debt_title,
@@ -101,8 +117,12 @@ namespace Expense_Tracker.Services
                                 outflow_label = "Outflow",
                                 outflow_tag = debt.debt_tag,
 
+
                             };
-                            await _outflowService.AddOutflowAsync(outflow);
+                            await _outflowService.AddOutflowAsync(outflow); //using this method to update the outflow details
+                            await _dashboardService.UpdateTotalInflowAsync(userId, debt.debt_amount);
+
+
 
                         }
                         else
@@ -151,7 +171,7 @@ namespace Expense_Tracker.Services
         }
 
 
-        public async Task SaveDebtAsync(List<Debt> debtDetails)
+        public async Task SaveDebtAsync(List<Debt> debtDetails)//saving the debt details in json file
         {
             try
             {

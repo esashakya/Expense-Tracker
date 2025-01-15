@@ -1,4 +1,5 @@
 ﻿@page "/AddTransaction"
+ @*importing the necessary file and folders*@
 @using Expense_Tracker.Models
 @using Expense_Tracker.Services
 @inject AuthenticationStateService _authStateService
@@ -8,7 +9,7 @@
 @inject IDashboardService dashboardService
 <div class="container">
   <h2 class="text-center" style="color: #0f4c7b;">Add Transaction</h2>
-    @if (!string.IsNullOrEmpty(displayMessage))
+    @if (!string.IsNullOrEmpty(displayMessage)) //display message according to the criteria
     {
         <div class=" shadow  p-1  mb-2 align-self-center" style="background-color: #197dca; border-radius: 15px;">
             <p class="text-light text-center  fw-bold fs-5">@displayMessage</p>
@@ -31,7 +32,7 @@
          </div>
         <div class="mb-3 ">
             <label for="Title" class="form-label">Title</label>
-            <input type="text" class="form-control" @bind="newTransaction.title" />
+            <input type="text" class="form-control" @bind="newTransaction.title" /> 
         </div>
          <div class="mb-3">
              <label for="Date" class="form-label">Date</label>
@@ -64,14 +65,14 @@
                </select>
 
           </div>
-        <button class="btn btn-primary" type="button" @onclick="EnableCustomTag" > Add Custom</button>
+        <button class="btn btn-primary" type="button" @onclick="OpenCustomTag" > Add Custom</button>
      </form>
                 
      @if (customTagAdditional)
         {
         <div class="m-2">
-            <input type="text" class="form-control" placeholder="Enter Custom Tag" @bind="custom" />
-              <button class="btn btn-primary" type="button" @onclick="AddCustomTag">Add Tag</button>
+            <input type="text" c placeholder="Enter Custom Tag" @bind="custom" />
+              <button class="btn btn-primary mt-2" type="button" @onclick="AddCustomTag">Add Tag</button>
                <button class="btn btn-secondary mt-2 ms-2" type="button" @onclick="CancelCustom">Cancel</button>
          </div>
                     }
@@ -88,8 +89,8 @@
     private List<string> tags = new List<string>{"Clothes", "Gadgets", "Groceries" };
     private bool customTagAdditional = false;
     private string custom;
-
-    private void EnableCustomTag()
+    //code for tag and to manually add the custom tag
+    private void OpenCustomTag()
     {
         customTagAdditional = true;
         custom = string.Empty;
@@ -139,7 +140,7 @@
 
         try
         {
-            var authenticatedUser = _authStateService.GetAuthenticatedUser();
+            var authenticatedUser = _authStateService.GetAuthenticatedUser();//get loggedin user
             if (authenticatedUser == null)
             {
                 errorMessage = "Please sign in to the system";
@@ -151,8 +152,9 @@
             else
             {
 
-                newTransaction.user_id = authenticatedUser.user_id;
+                newTransaction.user_id = authenticatedUser.user_id; //assigning the loggedin user id to the transaction user_id
                 decimal totalInflow = await dashboardService.CalculateTotalInflowAsync(newTransaction.user_id);
+                //checking if necessary fields are filled
                 if (newTransaction.amount <= 0 || newTransaction.date == DateTime.MinValue || newTransaction.label == null || newTransaction.chosen_tag == null || newTransaction.title == null || (newTransaction.label == "Debt" && (newTransaction.duedate == DateTime.MinValue || newTransaction.source == null)))
                 {
                     errorMessage = "Fill all the necessary details.";
@@ -163,6 +165,7 @@
                 {
                     if (newTransaction.label == "Inflow")
                     {
+                        //object to store inflow details
                         var inflow = new Inflow
                             {
                                 user_id = newTransaction.user_id,
@@ -178,6 +181,7 @@
                         successMessage = "Successfully added Inflow transaction";
                         messageType = "Success";
                     }
+                    //object to store outflow details
                     else if (newTransaction.label == "Outflow" && newTransaction.amount <= totalInflow)
                     {
                         var outflow = new Outflow
@@ -197,6 +201,7 @@
                     }
                     else if (newTransaction.label == "Debt")
                     {
+                        //object to store debt details
                         var debt = new Debt
                             {
                                 user_id = newTransaction.user_id,
@@ -235,6 +240,7 @@
             errorMessage = "Error while adding transaction";
             messageType = "Error";
         }
+        //if message type is success, successmessage is displayed
         if (messageType == "Success")
         {
             displayMessage = successMessage;
