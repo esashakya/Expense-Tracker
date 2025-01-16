@@ -31,17 +31,13 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"JSON deserialization error in the process");
                 return new List<Outflow>();
             }
-            catch (IOException ioEx)
-            {
-                Console.WriteLine($"I/O error while loading users: {ioEx.Message}");
-                return new List<Outflow>();
-            }
+            
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Error in loading inflows");
                 return new List<Outflow>();
             }
         }
@@ -65,7 +61,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                Console.WriteLine($"Error collecting inflows based on title");
                 return new List<Outflow>();
             }
         }
@@ -93,7 +89,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error adding task: {ex.Message}");
+                Console.WriteLine($"Error adding outflow details");
                 throw;
             }
         }
@@ -108,7 +104,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                Console.WriteLine($"Error collecting outflow details by id");
                 return new List<Outflow>();
             }
         }
@@ -121,14 +117,10 @@ namespace Expense_Tracker.Services
 
                 await File.WriteAllTextAsync(transactionFilePath, json);
             }
-            catch (IOException ioEx)
-            {
-                Console.WriteLine($"I/O error while loading inflow: {ioEx.Message}");
-                throw;
-            }
+            
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while saving inflow: {ex.Message}");
+                Console.WriteLine($"Unexpected error while saving inflow transactions");
                 throw;
             }
         }

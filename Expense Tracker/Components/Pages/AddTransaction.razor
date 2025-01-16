@@ -11,8 +11,8 @@
   <h2 class="text-center" style="color: #0f4c7b;">Add Transaction</h2>
     @if (!string.IsNullOrEmpty(displayMessage)) //display message according to the criteria
     {
-        <div class=" shadow  p-1  mb-2 align-self-center" style="background-color: #197dca; border-radius: 15px;">
-            <p class="text-light text-center  fw-bold fs-5">@displayMessage</p>
+        <div class=" shadow  p-1  mb-2 align-self-center" style="background-color: #197dca; border-radius: 7px;">
+            <p class="text-light text-center  fw-bold ">@displayMessage</p>
         </div>
     }
     <form>
@@ -71,7 +71,7 @@
      @if (customTagAdditional)
         {
         <div class="m-2">
-            <input type="text" c placeholder="Enter Custom Tag" @bind="custom" />
+            <input type="text" class="form-control" placeholder="Enter Custom Tag" @bind="custom" />
               <button class="btn btn-primary mt-2" type="button" @onclick="AddCustomTag">Add Tag</button>
                <button class="btn btn-secondary mt-2 ms-2" type="button" @onclick="CancelCustom">Cancel</button>
          </div>

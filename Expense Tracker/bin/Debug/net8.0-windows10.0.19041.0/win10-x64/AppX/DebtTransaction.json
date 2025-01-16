@@ -79,9 +79,9 @@
     "debt_label": "Debt",
     "debt_note": "baha",
     "debt_duedate": "0001-01-18T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Biren",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 7,
@@ -289,9 +289,9 @@
     "debt_label": "Debt",
     "debt_note": "yaya",
     "debt_duedate": "2025-01-14T00:00:00",
-    "debt_status": "Pending",
+    "debt_status": "Cleared",
     "debt_source": "Gane",
-    "cleared": false
+    "cleared": true
   },
   {
     "debtId": 22,
@@ -362,5 +362,47 @@
     "debt_status": "Cleared",
     "debt_source": "ol",
     "cleared": true
+  },
+  {
+    "debtId": 27,
+    "user_id": 1,
+    "debt_amount": 60000,
+    "debt_date": "2025-01-16T00:00:00",
+    "debt_tag": "Groceries",
+    "debt_title": "jbfasijf",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-16T00:00:00",
+    "debt_status": "Cleared",
+    "debt_source": "dm askd",
+    "cleared": true
+  },
+  {
+    "debtId": 28,
+    "user_id": 1,
+    "debt_amount": 800010,
+    "debt_date": "2025-01-16T00:00:00",
+    "debt_tag": "Groceries",
+    "debt_title": "jgiu",
+    "debt_label": "Debt",
+    "debt_note": null,
+    "debt_duedate": "2025-01-16T00:00:00",
+    "debt_status": "Pending",
+    "debt_source": "bh",
+    "cleared": false
+  },
+  {
+    "debtId": 29,
+    "user_id": 4,
+    "debt_amount": 2000,
+    "debt_date": "2025-01-15T00:00:00",
+    "debt_tag": "Gadgets",
+    "debt_title": "haha",
+    "debt_label": "Debt",
+    "debt_note": "hi",
+    "debt_duedate": "2025-01-16T00:00:00",
+    "debt_status": "Pending",
+    "debt_source": "bobby",
+    "cleared": false
   }
 ]

@@ -240,5 +240,49 @@
     "inflow_label": "Inflow",
     "inflow_title": "salary",
     "inflow_note": null
+  },
+  {
+    "inflowId": 23,
+    "user_id": 5,
+    "inflow_amount": 1500,
+    "inflow_date": "2025-01-16T00:00:00",
+    "inflow_tag": "Laptop",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": "First Inflow",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 24,
+    "user_id": 5,
+    "inflow_amount": 5000,
+    "inflow_date": "2025-01-16T00:00:00",
+    "inflow_tag": "Groceries",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": "Second",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 25,
+    "user_id": 5,
+    "inflow_amount": 4500,
+    "inflow_date": "2025-01-16T00:00:00",
+    "inflow_tag": "Groceries",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": "y",
+    "inflow_note": null
+  },
+  {
+    "inflowId": 26,
+    "user_id": 5,
+    "inflow_amount": 25,
+    "inflow_date": "2025-01-14T00:00:00",
+    "inflow_tag": "Gadgets",
+    "custom_inflow_tag": null,
+    "inflow_label": "Inflow",
+    "inflow_title": "Dashain",
+    "inflow_note": "tika"
   }
 ]

@@ -40,7 +40,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
                 
-                Console.WriteLine($"Error adding task: {ex.Message}");
+                Console.WriteLine($"Error while adding new inflow");
                 throw; 
             }
         }
@@ -55,7 +55,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                Console.WriteLine($"Error while adding new inflow by title");
                 return new List<Inflow>();
             }
         }
@@ -71,7 +71,7 @@ namespace Expense_Tracker.Services
             catch (Exception ex)
             {
                 
-                Console.WriteLine($"Error retrieving tasks for user {userId}: {ex.Message}");
+                Console.WriteLine($"Error while adding new inflow bu id");
                 return new List<Inflow>(); 
             }
         }
@@ -89,17 +89,13 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"deserialization error during loading the file");
                 return new List<Inflow>();
             }
-            catch (IOException ioEx)
-            {
-                Console.WriteLine($"I/O error while loading transaction: {ioEx.Message}");
-                return new List<Inflow>();
-            }
+           
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading transaction: {ex.Message}");
+                Console.WriteLine($"Unexpected error encountered while loading transaction");
                 return new List<Inflow>();
             }
         }

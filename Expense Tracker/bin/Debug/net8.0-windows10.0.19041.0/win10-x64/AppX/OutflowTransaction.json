@@ -408,5 +408,35 @@
     "outflow_title": "o",
     "outflow_label": "Outflow",
     "outflow_note": null
+  },
+  {
+    "outflowId": 42,
+    "user_id": 4,
+    "outflow_amount": 10000,
+    "outflow_date": "2025-01-14T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": "completed",
+    "outflow_label": "Outflow",
+    "outflow_note": "yaya"
+  },
+  {
+    "outflowId": 43,
+    "user_id": 1,
+    "outflow_amount": 20000,
+    "outflow_date": "2025-01-13T00:00:00",
+    "outflow_tag": "Clothes",
+    "outflow_title": null,
+    "outflow_label": "Outflow",
+    "outflow_note": "baha"
+  },
+  {
+    "outflowId": 44,
+    "user_id": 1,
+    "outflow_amount": 60000,
+    "outflow_date": "2025-01-16T00:00:00",
+    "outflow_tag": "Groceries",
+    "outflow_title": "jbfasijf",
+    "outflow_label": "Outflow",
+    "outflow_note": null
   }
 ]

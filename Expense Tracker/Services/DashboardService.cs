@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Expense_Tracker.Models;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Runtime.CompilerServices;
 namespace Expense_Tracker.Services
 {
     public class DashboardService : IDashboardService
@@ -45,12 +47,12 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"JSON deserialization error while loading the JSON file");
                 return 0;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Error in calculating");
                 return 0;
             }
         }
@@ -66,13 +68,13 @@ namespace Expense_Tracker.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Unexpected error while loading the JSON file");
                 return 0;
             }
            
             
             }
-        public async Task<decimal> CalculateTotalOutflowAsync(int id)
+        public async Task<decimal> CalculateTotalOutflowAsync(int id)  
         {
             try
             {
@@ -90,12 +92,12 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"JSON deserialization error while loading the JSON file");
                 return 0;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Error encountered during calcukation");
                 return 0;
             }
         }
@@ -117,12 +119,12 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"JSON deserialization error while loading the JSON file");
                 return 0;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Error encountered during calcukation");
                 return 0;
             }
         }
@@ -146,12 +148,12 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"JSON deserialization error while loading the JSON file");
                 return (0, 0, 0);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading inflow: {ex.Message}");
+                Console.WriteLine($"Error encountered during calcukation");
                 return (0, 0, 0);
             }
         }

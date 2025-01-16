@@ -3,21 +3,26 @@
 @using Expense_Tracker.Models
 @using Expense_Tracker.Services
 @inject AuthenticationStateService _authStateService
-@inject NavigationManager navigationManager
 @inject IDashboardService dashboardService
 @inject IOutflowService outflowService
 <div class="container">
     <div class="d-flex flex-column align-items-center">
         <h2 class="text-center fw-bold" style="color:#0f4c7b;">CASH OUTFLOW</h2>
+        @if (!string.IsNullOrEmpty(ouflowMessage))
+        {
+            <div class=" shadow  p-1  mb-2 align-self-center" style="background-color: #197dca; border-radius: 7px;">
+                <p class="text-light text-center  fw-bold ">@ouflowMessage</p>
+            </div>
+        }
         <div class="background-blue p-3 m-4 text-center">
             <h3 class="fw-bold"><span>Total Amount:</span>@total</h3>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h5 class="text-success">Highest Inflow: @highestOutflow</h5>
+                <h5 class="text-success">Highest Outflow: @highestOutflow</h5>
             </div>
             <div class="col-md-6">
-                <h5 class="text-primary">Lowest Inflow: @lowestOutflow</h5>
+                <h5 class="text-primary">Lowest Outflow: @lowestOutflow</h5>
             </div>
         </div>
     </div>
@@ -31,7 +36,7 @@
             <label for="endDateRange">End Date Range</label>
             <input type="date" @bind="endDateRange" class="form-control" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="filterTag">Filter By Tag</label>
             <select class="form-control" @bind="filterTag">
                 <option value="defaultText" selected disabled hidden>Select Tag</option>
@@ -40,9 +45,18 @@
                 <option value="Groceries">Groceries</option>
             </select>
         </div>
-        <div class="col-md-3 align-self-center">
+        <div class="col-md-2 align-self-center">
             <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
         </div>
+        <div class="col-md-2 align-self-center mt-2">
+            <button class="btn btn-primary mt-4" type="button" @onclick="ClearFilterByDate">Clear Filter</button>
+        </div>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class=" shadow  mb-2 align-self-center" style="background-color: #197dca; border-radius: 7px;">
+                <p class="text-light text-center  fw-bold ">@errorMessage</p>
+            </div>
+        }
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
         <div class="d-flex flex-row">
@@ -152,6 +166,7 @@
     private decimal totalOutflow;
     private decimal total;
     private string errorMessage;
+    private string ouflowMessage;
     private string searchOutflowTitle;
     private decimal highestOutflow;
     private decimal lowestOutflow;
@@ -176,6 +191,7 @@
             OutflowItems = OutflowItems
                 .Where(t => t.outflow_date >= startDateRange.Value && t.outflow_date <= endDateRange.Value && t.outflow_tag == filterTag) //provide the data
                 .ToList();
+            errorMessage = "";
 
         }
         else if (startDateRange.HasValue && endDateRange.HasValue)
@@ -183,6 +199,7 @@
             OutflowItems = OutflowItems
                 .Where(t => t.outflow_date >= startDateRange.Value && t.outflow_date <= endDateRange.Value) //provide the data
                 .ToList();
+            errorMessage = "";
         }
         else
         {
@@ -191,6 +208,10 @@
 
 
         StateHasChanged();
+    }
+    private async Task ClearFilterByDate()
+    {
+       await OnInitializedAsync();
     }
     private async Task Total()
     {
@@ -209,7 +230,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Please refresh the page.";
+            string ouflowMessage = "Please refresh the page to get the transaction details.";
         }
     }
     private async Task OutflowList()

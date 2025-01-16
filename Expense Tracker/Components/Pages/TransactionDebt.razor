@@ -37,7 +37,7 @@
             <label for="endDateRange">End DueDate Range</label>
             <input type="date" @bind="endDateRange" class="form-control" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="filterTag">Filter By Tag</label>
             <select class="form-control" @bind="filterTag">
                 <option value="defaultText" selected disabled hidden>Select Tag</option>
@@ -46,8 +46,11 @@
                 <option value="Groceries">Groceries</option>
             </select>
         </div>
-        <div class="col-md-3 align-self-center">
+        <div class="col-md-2 align-self-center">
             <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
+        </div>
+        <div class="col-md-2 align-self-center">
+            <button class="btn btn-primary mt-4" type="button" @onclick="ClearFilterByDate">Clear Filter</button>
         </div>
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
@@ -191,6 +194,7 @@
             DebtItems = DebtItems
                 .Where(t => t.debt_duedate >= startDateRange.Value && t.debt_duedate <= endDateRange.Value && t.debt_tag == filterTag) //provide the data
                 .ToList();
+            errorMessage = "";
 
         }
         else if (startDateRange.HasValue && endDateRange.HasValue)
@@ -198,6 +202,7 @@
             DebtItems = DebtItems
                 .Where(t => t.debt_duedate >= startDateRange.Value && t.debt_duedate <= endDateRange.Value ) //provide the data
                 .ToList();
+            errorMessage = "";
         }
         else
         {
@@ -206,6 +211,10 @@
 
 
         StateHasChanged();
+    }
+    private async Task ClearFilterByDate()
+    {
+       await OnInitializedAsync();
     }
     private async Task Total()
     {
@@ -220,6 +229,7 @@
             debtAmt = await debtService.GetDebtsByUserIdAsync(id);
             highestDebt = debtAmt.Max(i => i.debt_amount);
             lowestDebt = debtAmt.Min(i => i.debt_amount);
+            errorMessage = "";
 
         }
         catch (Exception ex)
@@ -234,6 +244,7 @@
             var authenticatedUser = _authStateService.GetAuthenticatedUser(); //to get loggedin user id
             int id = authenticatedUser.user_id;
             DebtItems = await debtService.GetDebtsByUserIdAsync(id); //provide the loggedin user id as parameter
+             errorMessage = "";
         }
         catch (Exception ex)
         {

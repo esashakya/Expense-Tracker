@@ -55,6 +55,9 @@
     <div class="col-md-3 align-self-center">
         <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Date Filter</button>
     </div>
+    <div class="col-md-2 align-self-center">
+        <button class="btn btn-primary mt-4" type="button" @onclick="ClearFilterByDate">Clear Filter</button>@*to clear the filtered data*@
+    </div>
 </div>
 
 <div class="container mt-4">
@@ -79,9 +82,12 @@
                             string transactionOutflow = "Outflow";
                             string transactionDebt = "Debt";
                             string tag = "Tag";
+                            string Highest = "Highest";
+                            string Lowest = "Lowest";
                         }
                         <ul class="dropdown-menu" >
-                            <li><button class="dropdown-item" @onclick="() => SortData(date)">Date</button></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(Highest)">Highest Amount</button></li>
+                            <li><button class="dropdown-item" @onclick="() => SortData(Lowest)">Lowest Amount</button></li>
                             <li><button class="dropdown-item" @onclick="() =>SortData(transactionInflow)">Inflow</button></li>
                             <li><button class="dropdown-item" @onclick="() => SortData(transactionOutflow)">Outflow</button></li>
                             <li><button class="dropdown-item" @onclick="() => SortData(transactionDebt)">Debt</button></li>
@@ -225,9 +231,9 @@
     }
     private async Task SortData(string typeSorting)
     {
-        if (typeSorting == "Date")
+        if (typeSorting == "Highest")
         {
-            totalTransaction = totalTransaction.OrderByDescending(t => t.transaction_date).ToList();
+            totalTransaction = totalTransaction.OrderByDescending(t => t.transaction_amount).ToList();
         }
         else if (typeSorting == "Inflow")
         {
@@ -241,11 +247,17 @@
         {
             totalTransaction = totalTransaction.Where(t => t.transaction_label == "Debt").OrderByDescending(t => t.transaction_amount).ToList();
         }
+        else if (typeSorting == "Lowest")
+        {
+            totalTransaction = totalTransaction.OrderBy(t => t.transaction_amount).ToList();
+        }
         else
         {
             totalTransaction = totalTransaction.OrderBy(t => t.transaction_tag).OrderByDescending(t => t.transaction_amount).ToList();
         }
+
         StateHasChanged();
+        
     }
     private async Task FilterByDate()
     {
@@ -280,7 +292,10 @@
 
         StateHasChanged();
     }
-
+    private async Task ClearFilterByDate()
+    {
+        await OnInitializedAsync();
+    }
     private async Task Total()
     {
         //calculating total amount by using method from dashboard services

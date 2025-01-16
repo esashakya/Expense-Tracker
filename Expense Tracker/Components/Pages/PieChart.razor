@@ -1,4 +1,9 @@
 ﻿@page "/PieChart"
+@using Expense_Tracker.Models;
+@using Expense_Tracker.Services;
+@inject IDashboardService dashboardService;
+@inject AuthenticationStateService _authStateService
+
 <div class="container mt-2">
     <MudPaper Class="pa-4">
         <MudChart ChartType="ChartType.Pie" InputData="@data" @bind-SelectedIndex="Index" InputLabels="@labels" Width="200px" Height="200px" />
@@ -6,10 +11,37 @@
 </div>
 
 @code {
+
+    private double[] data;
+    private string[] labels;
+    private int Index = -1;
+    int dataSize = 5;
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticatedUser = _authStateService.GetAuthenticatedUser();
+        int id = authenticatedUser.user_id;
+        decimal inflowChart = await dashboardService.CalculateTotalInflowAsync(id);
+        decimal outflowChart = await dashboardService.CalculateTotalOutflowAsync(id);
+        (decimal totalDebtChart, decimal pendingDebtChart, decimal clearedDebtChart) = await dashboardService.CalculateTotalDebtAsync(id);
+        decimal totalDebtChartInfo = totalDebtChart;
+        decimal pendingDebtChartInfo = pendingDebtChart;
+        decimal clearedDebtChartInfo = clearedDebtChart;
+        data = new double[]
+        {
+            (double) inflowChart,
+            (double) outflowChart,
+            (double) totalDebtChartInfo,
+            (double) pendingDebtChartInfo,
+            (double) clearedDebtChartInfo
+
+
+
+        };
+        labels = new string[] { "Inflow", "Outflow", "Debt", "Pending Debt", "Cleared Debt" };
+    }
+    
         
-        private int Index = -1; 
-        int dataSize = 3;
-        double[] data = { 77, 25, 20 };
-        string[] labels = { "Inflow", "Outflow", "Debt" };
+        
+       
 
 }

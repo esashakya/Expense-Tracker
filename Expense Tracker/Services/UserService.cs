@@ -26,7 +26,7 @@ namespace Expense_Tracker.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving user: {ex.Message}");
+                Console.WriteLine($"Error saving the new users");
                 throw;
             }
         }
@@ -45,17 +45,13 @@ namespace Expense_Tracker.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"JSON deserialization error: {jsonEx.Message}");
+                Console.WriteLine($"Deserialixation error in specific file");
                 return new List<User>();
             }
-            catch (IOException ioEx)
-            {
-                Console.WriteLine($"I/O error while loading users: {ioEx.Message}");
-                return new List<User>();
-            }
+            
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while loading users: {ex.Message}");
+                Console.WriteLine($"Unexpected error during loading users process");
                 return new List<User>();
             }
         }
@@ -68,14 +64,10 @@ namespace Expense_Tracker.Services
 
                 await File.WriteAllTextAsync(usersFilePath, json);
             }
-            catch (IOException ioEx)
-            {
-                Console.WriteLine($"I/O error while loading users: {ioEx.Message}");
-                throw;
-            }
+            
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected error while saving users: {ex.Message}");
+                Console.WriteLine($"Error in saving new user and user information");
                 throw;
             }
         }

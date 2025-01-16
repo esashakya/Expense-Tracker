@@ -29,7 +29,7 @@
             <label for="endDateRange">End Date Range</label>
             <input type="date" @bind="endDateRange" class="form-control" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="filterTag">Filter By Tag</label>
             <select class="form-control" @bind="filterTag">
                  <option value="defaultText" selected disabled hidden>Select Tag</option>
@@ -38,9 +38,18 @@
                 <option value="Clothes">Groceries</option>
            </select>
         </div>
-        <div class="col-md-3 align-self-center">
+        <div class="col-md-2 align-self-center">
             <button class="btn btn-primary mt-4" type="button" @onclick="FilterByDate">Apply Filter</button>
         </div>
+        <div class="col-md-2 align-self-center">
+            <button class="btn btn-primary mt-4" type="button" @onclick="ClearFilterByDate">Clear Filter</button>
+        </div>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class=" shadow  p-1  mb-2 align-self-center" style="background-color: #197dca; border-radius: 7px;">
+                <p class="text-light text-center  fw-bold ">@errorMessage</p>
+            </div>
+        }
     </div>
     <div class="mb-5" style="margin-left: 25%; ">
         <div class="d-flex flex-row">
@@ -174,6 +183,7 @@
             InflowItems = InflowItems
                 .Where(t => t.inflow_date >= startDateRange.Value && t.inflow_date <= endDateRange.Value && t.inflow_tag == filterTag) //provide the data
                 .ToList();
+            errorMessage = "";
 
         }
         else if (startDateRange.HasValue && endDateRange.HasValue)
@@ -181,6 +191,7 @@
             InflowItems = InflowItems
                 .Where(t => t.inflow_date >= startDateRange.Value && t.inflow_date <= endDateRange.Value) //provide the data
                 .ToList();
+            errorMessage = "";
         }
         else
         {
@@ -217,6 +228,10 @@
             errorMessage = "Please refresh the page.";
         }
     }
+    private async Task ClearFilterByDate()
+    {
+        await OnInitializedAsync();
+    }
     private async Task Total()
     {
         try
@@ -234,7 +249,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Please refresh the page.";
+           
         }
     }
     private async Task InflowList()
@@ -247,7 +262,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Please refresh the page.";
+            errorMessage = "Please reload the page after few minutes.";
         }
     }
     private async Task LatestDateInflow()
